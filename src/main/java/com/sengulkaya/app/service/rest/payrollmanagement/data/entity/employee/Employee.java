@@ -1,5 +1,6 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.contracts.ILifeInsurance;
@@ -9,11 +10,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "Employees")
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "jobTitle")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value=Worker.class, name = "Worker"),
-        @JsonSubTypes.Type(value=Worker.class, name = "Manager")
-})
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Employee implements ILifeInsurance {
     @Id
     @Column(name = "citizen_id")
@@ -24,6 +21,7 @@ public abstract class Employee implements ILifeInsurance {
     private String name;
 
     @Column(name = "date_of_birth", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dateOfBirth;//Retirement benefits?
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,9 +36,11 @@ public abstract class Employee implements ILifeInsurance {
     private String jobTitle;
 
     @Column(name = "date_of_employment", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dateOfEmployment;
 
     @Column(name = "date_of_leave", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dateOfLeave;
 
     @Column(name = "base_salary", nullable = false)
@@ -51,6 +51,9 @@ public abstract class Employee implements ILifeInsurance {
 
     @Column(name = "rate_per_hour", nullable = false)
     private double ratePerHour;
+
+    @Column(name = "active", nullable = false)
+    private boolean active;
 
     public String getCitizenId() {
         return citizenId;
@@ -137,5 +140,13 @@ public abstract class Employee implements ILifeInsurance {
 
     public void setRatePerHour(double ratePerHour) {
         this.ratePerHour = ratePerHour;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

@@ -1,10 +1,11 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 
-public class EmployeeRequestDTO {
+
+public class WorkerRequestDTO {
     private String citizenId;
     private String name;
     private LocalDate dateOfBirth;//Retirement benefits?
@@ -14,11 +15,12 @@ public class EmployeeRequestDTO {
     private double baseSalary;
     private double ratePerHour;
 
+
     public String getCitizenId() {
         return citizenId;
     }
 
-    public EmployeeRequestDTO setCitizenId(String citizenId) {
+    public WorkerRequestDTO setCitizenId(String citizenId) {
         this.citizenId = citizenId;
         return this;
     }
@@ -27,7 +29,7 @@ public class EmployeeRequestDTO {
         return name;
     }
 
-    public EmployeeRequestDTO setName(String name) {
+    public WorkerRequestDTO setName(String name) {
         this.name = name;
         return this;
     }
@@ -36,7 +38,7 @@ public class EmployeeRequestDTO {
         return dateOfBirth;
     }
 
-    public EmployeeRequestDTO setDateOfBirth(LocalDate dateOfBirth) {
+    public WorkerRequestDTO setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
         return this;
     }
@@ -45,7 +47,7 @@ public class EmployeeRequestDTO {
         return department;
     }
 
-    public EmployeeRequestDTO setDepartment(String department) {
+    public WorkerRequestDTO setDepartment(String department) {
         this.department = department;
         return this;
     }
@@ -54,7 +56,7 @@ public class EmployeeRequestDTO {
         return jobTitle;
     }
 
-    public EmployeeRequestDTO setJobTitle(String jobTitle) {
+    public WorkerRequestDTO setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
         return this;
     }
@@ -63,7 +65,7 @@ public class EmployeeRequestDTO {
         return dateOfEmployment;
     }
 
-    public EmployeeRequestDTO setDateOfEmployment(LocalDate dateOfEmployment) {
+    public WorkerRequestDTO setDateOfEmployment(LocalDate dateOfEmployment) {
         this.dateOfEmployment = dateOfEmployment;
         return this;
     }
@@ -72,7 +74,7 @@ public class EmployeeRequestDTO {
         return baseSalary;
     }
 
-    public EmployeeRequestDTO setBaseSalary(double baseSalary) {
+    public WorkerRequestDTO setBaseSalary(double baseSalary) {
         this.baseSalary = baseSalary;
         return this;
     }
@@ -81,7 +83,7 @@ public class EmployeeRequestDTO {
         return ratePerHour;
     }
 
-    public EmployeeRequestDTO setRatePerHour(double ratePerHour) {
+    public WorkerRequestDTO setRatePerHour(double ratePerHour) {
         this.ratePerHour = ratePerHour;
         return this;
     }

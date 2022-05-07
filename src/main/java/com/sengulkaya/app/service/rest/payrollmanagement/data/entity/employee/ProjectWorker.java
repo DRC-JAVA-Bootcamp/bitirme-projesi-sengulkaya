@@ -1,11 +1,12 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-public class Worker extends Employee {
+public class ProjectWorker extends Worker {
+    private String projectName;
+
     @Override
     public String getCitizenId() {
         return super.getCitizenId();
@@ -131,4 +132,13 @@ public class Worker extends Employee {
         return super.calculateInsurancePayment(pay);
     }
 
+
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
 }

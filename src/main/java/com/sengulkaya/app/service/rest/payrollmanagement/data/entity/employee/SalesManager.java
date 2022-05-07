@@ -1,11 +1,12 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-public class Worker extends Employee {
+public class SalesManager extends Manager {
+    private double bonus;
+
     @Override
     public String getCitizenId() {
         return super.getCitizenId();
@@ -131,4 +132,12 @@ public class Worker extends Employee {
         return super.calculateInsurancePayment(pay);
     }
 
+
+    public double getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(double bonus) {
+        this.bonus = bonus;
+    }
 }
