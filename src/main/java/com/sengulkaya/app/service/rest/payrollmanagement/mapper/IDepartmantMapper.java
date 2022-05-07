@@ -11,7 +11,6 @@ public interface IDepartmantMapper {
 
     Department toDepartment(DepartmentRequestDTO departmentRequestDTO);
 
-
     DepartmentResponseDTO toDepartmentResponseDTO(Department department);
 
 }

@@ -11,6 +11,7 @@ public class SalesManagerResponseDTO {
     private LocalDate dateOfEmployment;
     private double baseSalary;
     private double ratePerHour;
+    private boolean active;
     private double bonus;
 
     public String getCitizenId() {
@@ -83,6 +84,14 @@ public class SalesManagerResponseDTO {
     public SalesManagerResponseDTO setRatePerHour(double ratePerHour) {
         this.ratePerHour = ratePerHour;
         return this;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public double getBonus() {

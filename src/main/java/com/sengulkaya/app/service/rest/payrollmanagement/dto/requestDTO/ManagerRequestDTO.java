@@ -1,5 +1,6 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO;
 
+import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Department;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class ManagerRequestDTO {
     private LocalDate dateOfEmployment;
     private double baseSalary;
     private double ratePerHour;
+    private boolean active;
 
     public String getCitizenId() {
         return citizenId;
@@ -85,5 +87,13 @@ public class ManagerRequestDTO {
     public ManagerRequestDTO setRatePerHour(double ratePerHour) {
         this.ratePerHour = ratePerHour;
         return this;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

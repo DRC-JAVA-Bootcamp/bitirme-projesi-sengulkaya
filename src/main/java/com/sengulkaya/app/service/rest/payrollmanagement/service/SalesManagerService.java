@@ -1,14 +1,14 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.service;
 
 import com.sengulkaya.app.service.rest.payrollmanagement.data.dal.ServiceDAL;
-import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ManagerRequestDTO;
+import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.*;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.SalesManagerRequestDTO;
-import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ManagerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.SalesManagerResponseDTO;
-import com.sengulkaya.app.service.rest.payrollmanagement.mapper.IManagerMapper;
 import com.sengulkaya.app.service.rest.payrollmanagement.mapper.ISalesManagerMapper;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SalesManagerService  {
     private final ServiceDAL serviceDAL;
@@ -30,17 +30,44 @@ public class SalesManagerService  {
 
     public SalesManagerResponseDTO updateSalesManager(SalesManagerRequestDTO salesManagerRequestDTO)
     {
-        //
+        SalesManager found = serviceDAL.findSalesManagerById(salesManagerRequestDTO.getCitizenId());
+
+        found.setName(salesManagerRequestDTO.getName());
+        found.setDateOfBirth(salesManagerRequestDTO.getDateOfBirth());
+        found.setDepartment(serviceDAL.findDepartmentByName(salesManagerRequestDTO.getDepartment()));
+        found.setJobTitle(salesManagerRequestDTO.getJobTitle());
+        found.setDateOfEmployment(salesManagerRequestDTO.getDateOfEmployment());
+        found.setBaseSalary(salesManagerRequestDTO.getBaseSalary());
+        found.setRatePerHour(salesManagerRequestDTO.getRatePerHour());
+        found.setBonus(salesManagerRequestDTO.getBonus());
+        found.setActive(salesManagerRequestDTO.isActive());
+
+        return salesManagerMapper.toSalesManagerResponseDTO(serviceDAL.saveSalesManager(found));
     }
 
-    public SalesManagerResponseDTO removeSalesManagerById(Long salesManagerId)
+    public SalesManagerResponseDTO deleteSalesManagerById(String citizenId)
     {
-//
+        SalesManager salesManager = serviceDAL.findSalesManagerById(citizenId);
+        Department department = salesManager.getDepartment();
+
+        Set<Employee> set = department.getEmployees();
+        set.remove(salesManager);
+        //salesManager.setEmployees(set);
+        serviceDAL.saveDepartment(department);
+        return salesManagerMapper.toSalesManagerResponseDTO
+                (serviceDAL.removeSalesManager(salesManager));
+    }
+
+    public SalesManagerResponseDTO findSalesManagerByCitizenId(String citizenId)
+    {
+        return salesManagerMapper.toSalesManagerResponseDTO(serviceDAL.findSalesManagerById(citizenId));
     }
 
     public List<SalesManagerResponseDTO> findAllSalesManagers()
     {
-        //
+        return serviceDAL.findAllSalesManagers().stream()
+                .map(salesManagerMapper::toSalesManagerResponseDTO)
+                .collect(Collectors.toList());
 
     }
 

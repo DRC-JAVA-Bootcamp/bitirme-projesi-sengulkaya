@@ -4,5 +4,8 @@ import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Pr
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Worker;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+
 public interface IProjectWorkerRepository extends CrudRepository<ProjectWorker, Long> {
+    Optional<ProjectWorker> findByCitizenId(String citizenId);
 }

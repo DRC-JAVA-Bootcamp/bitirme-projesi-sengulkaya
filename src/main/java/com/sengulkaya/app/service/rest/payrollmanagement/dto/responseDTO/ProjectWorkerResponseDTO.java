@@ -12,6 +12,7 @@ public class ProjectWorkerResponseDTO {
     private double baseSalary;
     private double ratePerHour;
     private String projectName;
+    private boolean active;
 
     public String getCitizenId() {
         return citizenId;
@@ -91,5 +92,13 @@ public class ProjectWorkerResponseDTO {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

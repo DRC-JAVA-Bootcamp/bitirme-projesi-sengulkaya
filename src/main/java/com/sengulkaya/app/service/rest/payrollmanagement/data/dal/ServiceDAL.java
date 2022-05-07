@@ -53,24 +53,27 @@ public class ServiceDAL {
         return departmentRepository.save(department);
     }
 
-    public Worker findWorkerById(Long workerId) {
-        return workerRepository.findById(workerId).get();
+    public Worker findWorkerById(String String) {
+        return workerRepository.findByCitizenId(String).get();
     }
 
-    public ProjectWorker findProjectWorkerById(Long projectWorkerId) {
-        return projectWorkerRepository.findById(projectWorkerId).get();
+    public ProjectWorker findProjectWorkerById(String citizenId) {
+        return projectWorkerRepository.findByCitizenId(citizenId).get();
     }
 
-    public Manager findManagerById(Long managerId) {
-        return managerRepository.findById(managerId).get();
+    public Manager findManagerById(String citizenId) {
+        return managerRepository.findByCitizenId(citizenId).get();
     }
 
-    public SalesManager findSalesManagerById(Long salesManagerId) {
-        return salesManagerRepository.findById(salesManagerId).get();
+    public SalesManager findSalesManagerById(String citizenId) {
+        return salesManagerRepository.findByCitizenId(citizenId).get();
     }
 
     public Department findDepartmentById(Long departmentId) {
         return departmentRepository.findById(departmentId).get();
+    }
+    public Department findDepartmentByName(String departmentName) {
+        return departmentRepository.findByName(departmentName).get();
     }
 
 

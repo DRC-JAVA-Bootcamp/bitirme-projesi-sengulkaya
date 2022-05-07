@@ -4,9 +4,9 @@ import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ProjectW
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ProjectWorkerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.service.ProjectWorkerService;
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/projectWorker")
@@ -20,9 +20,32 @@ public class ProjectWorkerController {
     }
 
     @PostMapping("/save")
-    public ProjectWorkerResponseDTO saveProjectWorker(ProjectWorkerRequestDTO projectWorkerRequestDTO)
+    public ProjectWorkerResponseDTO saveProjectWorker(@RequestBody ProjectWorkerRequestDTO projectWorkerRequestDTO)
     {
         return projectWorkerService.saveProjectWorker(projectWorkerRequestDTO);
+    }
+
+    @PostMapping("/update")
+    public ProjectWorkerResponseDTO updateProjectWorker(@RequestBody ProjectWorkerRequestDTO projectWorkerRequestDTO)
+    {
+        return projectWorkerService.updateProjectWorker(projectWorkerRequestDTO);
+    }
+
+    @PostMapping("/delete")
+    public ProjectWorkerResponseDTO deleteprojectWorker(@RequestParam("citizenId") String citizenId)
+    {
+        return projectWorkerService.deleteProjectWorkerByCitizenId(citizenId);
+    }
+    @GetMapping("/find/citizenId")
+    public ProjectWorkerResponseDTO findProjectWorkerByCitizenId(@RequestParam("citizenId") String citizenId)
+    {
+        return projectWorkerService.findProjectWorkerByCitizenId(citizenId);
+    }
+
+    @GetMapping("/all")
+    public List<ProjectWorkerResponseDTO> findAllProjectWorkers()
+    {
+        return projectWorkerService.findAllProjectWorkers();
     }
 
 }
