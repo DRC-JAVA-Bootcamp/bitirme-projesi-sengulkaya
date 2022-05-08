@@ -8,9 +8,7 @@ import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.Manager
 import com.sengulkaya.app.service.rest.payrollmanagement.service.DepartmentService;
 import com.sengulkaya.app.service.rest.payrollmanagement.service.ManagerService;
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/department")
@@ -27,5 +25,11 @@ public class DepartmentController {
     public DepartmentResponseDTO saveDepartment(DepartmentRequestDTO departmentRequestDTO)
     {
         return departmentService.saveDepartment(departmentRequestDTO);
+    }
+
+    @GetMapping("/find/id")
+    public DepartmentResponseDTO findDepartmentBId(@RequestParam("id") Long departmentId)
+    {
+        return departmentService.findDepartmentById(departmentId);
     }
 }

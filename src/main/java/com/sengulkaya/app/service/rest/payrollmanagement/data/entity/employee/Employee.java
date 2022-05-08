@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.contracts.ILifeInsurance;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "Employees")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Employee implements ILifeInsurance {
     @Id
     @Column(name = "citizen_id")
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String citizenId;
 
     @Column(name = "name", nullable = false)
@@ -26,7 +26,6 @@ public abstract class Employee implements ILifeInsurance {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
-    //@Column(name = "department", nullable = false)
     private Department department;
 
     @Transient

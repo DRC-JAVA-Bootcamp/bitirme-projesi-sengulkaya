@@ -4,19 +4,21 @@ import com.sengulkaya.app.service.rest.payrollmanagement.data.dal.ServiceDAL;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.*;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ProjectWorkerRequestDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ProjectWorkerResponseDTO;
-import com.sengulkaya.app.service.rest.payrollmanagement.mapper.IProjectWorkerMapper;
+import com.sengulkaya.app.service.rest.payrollmanagement.mapper.ProjectWorkerMapper;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 public class ProjectWorkerService  {
     private final ServiceDAL serviceDAL;
-    private final IProjectWorkerMapper projectWorkerMapper;
+    private final ProjectWorkerMapper projectWorkerMapper;
 
     public ProjectWorkerService(ServiceDAL serviceDAL,
-                                IProjectWorkerMapper projectWorkerMapper)
+                                ProjectWorkerMapper projectWorkerMapper)
     {
         this.serviceDAL = serviceDAL;
         this.projectWorkerMapper = projectWorkerMapper;

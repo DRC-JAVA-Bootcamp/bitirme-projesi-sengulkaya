@@ -19,11 +19,11 @@ public class DepartmentResponseDTO {
         this.id = id;
     }
 
-    public String getDepartmantName() {
+    public String getDepartmentName() {
         return departmentName;
     }
 
-    public void setDepartmantName(String departmentName) {
+    public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
     }
 

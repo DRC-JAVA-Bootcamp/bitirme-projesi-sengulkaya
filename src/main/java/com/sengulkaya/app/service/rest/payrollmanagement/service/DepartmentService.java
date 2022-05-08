@@ -4,22 +4,20 @@ import com.sengulkaya.app.service.rest.payrollmanagement.data.dal.ServiceDAL;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Department;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Employee;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.DepartmentRequestDTO;
-import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ManagerRequestDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.DepartmentResponseDTO;
-import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ManagerResponseDTO;
-import com.sengulkaya.app.service.rest.payrollmanagement.mapper.IDepartmantMapper;
-import com.sengulkaya.app.service.rest.payrollmanagement.mapper.IManagerMapper;
+import com.sengulkaya.app.service.rest.payrollmanagement.mapper.DepartmentMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Service
 public class DepartmentService {
     private final ServiceDAL serviceDAL;
-    private final IDepartmantMapper departmantMapper;
+    private final DepartmentMapper departmantMapper;
 
     public DepartmentService(ServiceDAL serviceDAL,
-                             IDepartmantMapper departmantMapper)
+                             DepartmentMapper departmantMapper)
     {
         this.serviceDAL = serviceDAL;
         this.departmantMapper = departmantMapper;
@@ -34,8 +32,7 @@ public class DepartmentService {
     public DepartmentResponseDTO updateDepartment(Long departmentId, DepartmentRequestDTO departmentRequestDTO)
     {
         Department found = serviceDAL.findDepartmentById(departmentId);
-        found.setName(departmentRequestDTO.getDepartmantName());
-        found.setEmployees(departmentRequestDTO.getEmployees());
+        found.setDepartmentName(departmentRequestDTO.getDepartmentName());
 
         return departmantMapper.toDepartmentResponseDTO
                 (serviceDAL.saveDepartment(found));

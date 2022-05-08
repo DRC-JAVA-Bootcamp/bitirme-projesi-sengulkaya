@@ -6,18 +6,20 @@ import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Em
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Manager;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ManagerRequestDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ManagerResponseDTO;
-import com.sengulkaya.app.service.rest.payrollmanagement.mapper.IManagerMapper;
+import com.sengulkaya.app.service.rest.payrollmanagement.mapper.ManagerMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 public class ManagerService {
     private final ServiceDAL serviceDAL;
-    private final IManagerMapper managerMapper;
+    private final ManagerMapper managerMapper;
 
     public ManagerService(ServiceDAL serviceDAL,
-                          IManagerMapper managerMapper)
+                          ManagerMapper managerMapper)
     {
         this.serviceDAL = serviceDAL;
         this.managerMapper = managerMapper;

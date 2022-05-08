@@ -4,18 +4,20 @@ import com.sengulkaya.app.service.rest.payrollmanagement.data.dal.ServiceDAL;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.*;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.SalesManagerRequestDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.SalesManagerResponseDTO;
-import com.sengulkaya.app.service.rest.payrollmanagement.mapper.ISalesManagerMapper;
+import com.sengulkaya.app.service.rest.payrollmanagement.mapper.SalesManagerMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 public class SalesManagerService  {
     private final ServiceDAL serviceDAL;
-    private final ISalesManagerMapper salesManagerMapper;
+    private final SalesManagerMapper salesManagerMapper;
 
 
-    public SalesManagerService(ServiceDAL serviceDAL, ISalesManagerMapper salesManagerMapper) {
+    public SalesManagerService(ServiceDAL serviceDAL, SalesManagerMapper salesManagerMapper) {
 
         this.serviceDAL = serviceDAL;
         this.salesManagerMapper = salesManagerMapper;

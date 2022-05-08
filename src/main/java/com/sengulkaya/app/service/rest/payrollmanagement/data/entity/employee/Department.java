@@ -9,11 +9,11 @@ import java.util.Set;
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "department_id", nullable = false)
+    @Column(name = "department_id")
     private long id;
 
-    @Column(name = "department_name", nullable = false)
-    private String name;
+    @Column(name = "department_name")
+    private String departmentName;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @OrderColumn
@@ -21,12 +21,12 @@ public class Department {
     @Column(name = "employees", nullable = false)
     private Set<Employee> employees = new HashSet<>();
 
-    public String getName() {
-        return name;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public long getId() {

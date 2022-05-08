@@ -7,23 +7,15 @@ import java.util.Set;
 
 
 public class DepartmentRequestDTO {
-    private String departmantName;
-    private Set<Employee> employees;
+    private String departmentName;
 
 
-    public String getDepartmantName() {
-        return departmantName;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDepartmantName(String departmantName) {
-        this.departmantName = departmantName;
+    public void setDepartmentName(String depertmentName) {
+        this.departmentName = departmentName;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
 }
