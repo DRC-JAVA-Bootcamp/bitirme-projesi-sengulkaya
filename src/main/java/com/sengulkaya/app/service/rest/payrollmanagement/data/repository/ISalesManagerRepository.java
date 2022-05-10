@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface ISalesManagerRepository extends CrudRepository<SalesManager, Long> {
-    Optional<SalesManager> findByCitizenId(String citizenId);
+    Optional<SalesManager> findByEmployeeId(Long employeeId);
 }

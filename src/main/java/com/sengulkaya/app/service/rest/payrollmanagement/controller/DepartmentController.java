@@ -21,14 +21,14 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @PostMapping("/save")
-    public DepartmentResponseDTO saveDepartment(DepartmentRequestDTO departmentRequestDTO)
+    @PostMapping("/save")//works
+    public DepartmentResponseDTO saveDepartment(@RequestBody DepartmentRequestDTO departmentRequestDTO)
     {
         return departmentService.saveDepartment(departmentRequestDTO);
     }
 
-    @GetMapping("/find/id")
-    public DepartmentResponseDTO findDepartmentBId(@RequestParam("id") Long departmentId)
+    @GetMapping("/find/{id}")//works
+    public DepartmentResponseDTO findDepartmentBId(@PathVariable("id") Long departmentId)
     {
         return departmentService.findDepartmentById(departmentId);
     }

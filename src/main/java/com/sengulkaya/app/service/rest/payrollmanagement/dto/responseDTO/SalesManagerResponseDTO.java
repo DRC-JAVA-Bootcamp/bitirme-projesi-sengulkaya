@@ -6,13 +6,15 @@ public class SalesManagerResponseDTO {
     private String citizenId;
     private String name;
     private LocalDate dateOfBirth;//Retirement benefits?
-    private String department;
+    private String departmentName;
     private String jobTitle;
     private LocalDate dateOfEmployment;
     private double baseSalary;
     private double ratePerHour;
     private boolean active;
     private double bonus;
+    private Long departmentId;
+    private Long employeeId;
 
     public String getCitizenId() {
         return citizenId;
@@ -41,14 +43,7 @@ public class SalesManagerResponseDTO {
         return this;
     }
 
-    public String getDepartment() {
-        return department;
-    }
 
-    public SalesManagerResponseDTO setDepartment(String department) {
-        this.department = department;
-        return this;
-    }
 
     public String getJobTitle() {
         return jobTitle;
@@ -56,6 +51,15 @@ public class SalesManagerResponseDTO {
 
     public SalesManagerResponseDTO setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
+        return this;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public SalesManagerResponseDTO setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
         return this;
     }
 
@@ -67,6 +71,7 @@ public class SalesManagerResponseDTO {
         this.dateOfEmployment = dateOfEmployment;
         return this;
     }
+
 
     public double getBaseSalary() {
         return baseSalary;
@@ -90,15 +95,35 @@ public class SalesManagerResponseDTO {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public SalesManagerResponseDTO setActive(boolean active) {
         this.active = active;
+        return this;
     }
 
     public double getBonus() {
         return bonus;
     }
 
-    public void setBonus(double bonus) {
+    public SalesManagerResponseDTO setBonus(double bonus) {
         this.bonus = bonus;
+        return this;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public SalesManagerResponseDTO setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+        return this;
+    }
+
+    public Long getEmployeeId() {
+        return employeeId;
+    }
+
+    public SalesManagerResponseDTO setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+        return this;
     }
 }

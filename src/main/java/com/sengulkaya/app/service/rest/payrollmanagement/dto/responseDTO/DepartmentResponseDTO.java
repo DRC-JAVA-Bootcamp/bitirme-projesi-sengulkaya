@@ -4,34 +4,39 @@ import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.De
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Employee;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class DepartmentResponseDTO {
     private long id;
     private String departmentName;
-    private Set<Employee> employees;
+    private Map<String, Long> employeeNameIds;
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public DepartmentResponseDTO setId(long id) {
         this.id = id;
+        return this;
     }
 
     public String getDepartmentName() {
         return departmentName;
     }
 
-    public void setDepartmentName(String departmentName) {
+    public DepartmentResponseDTO setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+        return this;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
+
+    public Map<String, Long> getEmployeeNameIds() {
+        return employeeNameIds;
     }
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
+    public DepartmentResponseDTO setEmployeeNameIds(Map<String, Long> employeeNameIds) {
+        this.employeeNameIds = employeeNameIds;
+        return this;
     }
 }

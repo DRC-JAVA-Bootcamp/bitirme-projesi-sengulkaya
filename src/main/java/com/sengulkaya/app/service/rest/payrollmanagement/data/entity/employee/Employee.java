@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.contracts.ILifeInsurance;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
@@ -13,8 +14,11 @@ import java.time.LocalDate;
 @Table(name = "Employees")
 public abstract class Employee implements ILifeInsurance {
     @Id
-    @Column(name = "citizen_id")
+    @Column(name = "employee_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long employeeId;
+
+    @Column(name = "citizen_id", nullable = false, unique = true)
     private String citizenId;
 
     @Column(name = "name", nullable = false)
@@ -29,7 +33,7 @@ public abstract class Employee implements ILifeInsurance {
     private Department department;
 
     @Transient
-    private long departmantId;
+    private long departmentId;
 
     @Column(name = "job_title", nullable = false)
     private String jobTitle;
@@ -38,7 +42,7 @@ public abstract class Employee implements ILifeInsurance {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dateOfEmployment;
 
-    @Column(name = "date_of_leave", nullable = false)
+    @Column(name = "date_of_leave")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dateOfLeave;
 
@@ -53,6 +57,14 @@ public abstract class Employee implements ILifeInsurance {
 
     @Column(name = "active", nullable = false)
     private boolean active;
+
+    public long getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(long employeeId) {
+        this.employeeId = employeeId;
+    }
 
     public String getCitizenId() {
         return citizenId;
@@ -85,12 +97,13 @@ public abstract class Employee implements ILifeInsurance {
     public void setDepartment(Department department) {
         this.department = department;
     }
-    public long getDepartmantId() {
-        return departmantId;
+
+    public long getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartmantId(long departmantId) {
-        this.departmantId = departmantId;
+    public void setDepartmentId(long departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getJobTitle() {

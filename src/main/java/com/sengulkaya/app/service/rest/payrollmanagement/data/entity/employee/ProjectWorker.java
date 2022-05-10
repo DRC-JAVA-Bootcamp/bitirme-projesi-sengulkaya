@@ -8,6 +8,16 @@ public class ProjectWorker extends Worker {
     private String projectName;
 
     @Override
+    public long getEmployeeId() {
+        return super.getEmployeeId();
+    }
+
+    @Override
+    public void setEmployeeId(long employeeId) {
+        super.setEmployeeId(employeeId);
+    }
+
+    @Override
     public String getCitizenId() {
         return super.getCitizenId();
     }
@@ -48,13 +58,13 @@ public class ProjectWorker extends Worker {
     }
 
     @Override
-    public long getDepartmantId() {
-        return super.getDepartmantId();
+    public long getDepartmentId() {
+        return super.getDepartmentId();
     }
 
     @Override
-    public void setDepartmantId(long departmantId) {
-        super.setDepartmantId(departmantId);
+    public void setDepartmentId(long departmentId) {
+        super.setDepartmentId(departmentId);
     }
 
     @Override
@@ -131,8 +141,6 @@ public class ProjectWorker extends Worker {
     public double calculateInsurancePayment(double pay) {
         return super.calculateInsurancePayment(pay);
     }
-
-
 
     public String getProjectName() {
         return projectName;

@@ -6,13 +6,15 @@ public class ProjectWorkerResponseDTO {
     private String citizenId;
     private String name;
     private LocalDate dateOfBirth;//Retirement benefits?
-    private String department;
+    private String departmentName;
     private String jobTitle;
     private LocalDate dateOfEmployment;
     private double baseSalary;
     private double ratePerHour;
     private String projectName;
     private boolean active;
+    private Long departmentId;
+    private Long employeeId;
 
     public String getCitizenId() {
         return citizenId;
@@ -41,12 +43,12 @@ public class ProjectWorkerResponseDTO {
         return this;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public ProjectWorkerResponseDTO setDepartment(String department) {
-        this.department = department;
+    public ProjectWorkerResponseDTO setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
         return this;
     }
 
@@ -90,15 +92,35 @@ public class ProjectWorkerResponseDTO {
         return projectName;
     }
 
-    public void setProjectName(String projectName) {
+    public ProjectWorkerResponseDTO setProjectName(String projectName) {
         this.projectName = projectName;
+        return this;
     }
 
     public boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public ProjectWorkerResponseDTO setActive(boolean active) {
         this.active = active;
+        return this;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public ProjectWorkerResponseDTO setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+        return this;
+    }
+
+    public Long getEmployeeId() {
+        return employeeId;
+    }
+
+    public ProjectWorkerResponseDTO setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+        return this;
     }
 }

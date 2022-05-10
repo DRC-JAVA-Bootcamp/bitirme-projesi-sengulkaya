@@ -8,6 +8,7 @@ import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ManagerR
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ManagerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.mapper.ManagerMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -25,31 +26,41 @@ public class ManagerService {
         this.managerMapper = managerMapper;
     }
 
+    @Transactional
     public ManagerResponseDTO saveManager(ManagerRequestDTO managerRequestDTO)
     {
-        return managerMapper.toManagerResponseDTO
-                (serviceDAL.saveManager(managerMapper.toManager(managerRequestDTO)));
+        Department department = serviceDAL.findDepartmentById(managerRequestDTO.getDepartmentId());
+        Manager manager = serviceDAL.saveManager(managerMapper.toManager(managerRequestDTO));
+        department.getEmployees().add(manager);
+        manager.setDepartment(serviceDAL.saveDepartment(department));
+
+        return managerMapper.toManagerResponseDTO(manager);
     }
 
-    public ManagerResponseDTO updateManager(ManagerRequestDTO managerRequestDTO)
+    @Transactional
+    public ManagerResponseDTO updateManager(Long employeeId, ManagerRequestDTO managerRequestDTO)
     {
-        Manager found = serviceDAL.findManagerById(managerRequestDTO.getCitizenId());
+        Manager found = serviceDAL.findManagerByEmployeeId(employeeId);
 
+
+        found.setCitizenId(managerRequestDTO.getCitizenId());
         found.setName(managerRequestDTO.getName());
         found.setDateOfBirth(managerRequestDTO.getDateOfBirth());
-        found.setDepartment(serviceDAL.findDepartmentByName(managerRequestDTO.getDepartment()));
+        found.setDepartment(serviceDAL.findDepartmentById(managerRequestDTO.getDepartmentId()));
         found.setJobTitle(managerRequestDTO.getJobTitle());
         found.setDateOfEmployment(managerRequestDTO.getDateOfEmployment());
         found.setBaseSalary(managerRequestDTO.getBaseSalary());
         found.setRatePerHour(managerRequestDTO.getRatePerHour());
         found.setActive(managerRequestDTO.isActive());
 
+
         return managerMapper.toManagerResponseDTO(serviceDAL.saveManager(found));
     }
 
-    public ManagerResponseDTO deleteManagerByCitizenId(String citizenId)
+    @Transactional
+    public ManagerResponseDTO deleteManagerByEmployeeId(Long employeeId)
     {
-        Manager manager = serviceDAL.findManagerById(citizenId);
+        Manager manager = serviceDAL.findManagerByEmployeeId(employeeId);
         Department department = manager.getDepartment();
 
         Set<Employee> set = department.getEmployees();
@@ -60,9 +71,9 @@ public class ManagerService {
                 (serviceDAL.removeManager(manager));
     }
 
-    public ManagerResponseDTO findManagerByCitizenId(String citizenId)
+    public ManagerResponseDTO findManagerByEmployeeId(Long employeeId)
     {
-        return managerMapper.toManagerResponseDTO(serviceDAL.findManagerById(citizenId));
+        return managerMapper.toManagerResponseDTO(serviceDAL.findManagerByEmployeeId(employeeId));
     }
 
     public List<ManagerResponseDTO> findAllManagers()

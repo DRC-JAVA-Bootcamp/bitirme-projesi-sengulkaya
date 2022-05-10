@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WorkerMapper {
-
     public Worker toWorker(WorkerRequestDTO workerRequestDTO) {
         if ( workerRequestDTO == null ) {
             return null;
@@ -16,8 +15,14 @@ public class WorkerMapper {
 
         Worker worker = new Worker();
 
+        worker.setCitizenId( workerRequestDTO.getCitizenId() );
+        worker.setName( workerRequestDTO.getName() );
         worker.setDateOfBirth( workerRequestDTO.getDateOfBirth() );
+        worker.setJobTitle( workerRequestDTO.getJobTitle() );
         worker.setDateOfEmployment( workerRequestDTO.getDateOfEmployment() );
+        worker.setBaseSalary( workerRequestDTO.getBaseSalary() );
+        worker.setRatePerHour( workerRequestDTO.getRatePerHour() );
+        //worker.setDepartmentId( workerRequestDTO.getDepartmentId() );
 
         return worker;
     }
@@ -29,8 +34,18 @@ public class WorkerMapper {
 
         WorkerResponseDTO workerResponseDTO = new WorkerResponseDTO();
 
-        workerResponseDTO.setDateOfBirth( worker.getDateOfBirth() );
-        workerResponseDTO.setDateOfEmployment( worker.getDateOfEmployment() );
+        workerResponseDTO.setCitizenId( worker.getCitizenId() )
+                .setName( worker.getName())
+                .setDateOfBirth( worker.getDateOfBirth() )
+                .setDepartmentName(worker.getDepartment().getDepartmentName())
+                .setJobTitle( worker.getJobTitle())
+                .setDepartmentName( worker.getDepartment().getDepartmentName())
+                .setDateOfEmployment( worker.getDateOfEmployment() )
+                .setBaseSalary( worker.getBaseSalary())
+                .setRatePerHour( worker.getRatePerHour())
+                .setActive( worker.isActive())
+                .setDepartmentId( worker.getDepartmentId())
+                .setEmployeeId( worker.getEmployeeId());
 
         return workerResponseDTO;
     }

@@ -5,13 +5,14 @@ import java.time.LocalDate;
 public class ManagerResponseDTO {
     private String citizenId;
     private String name;
-    private LocalDate dateOfBirth;//Retirement benefits?
-    private String department;
+    private LocalDate dateOfBirth;//calculate age when setting retirement benefits?
     private String jobTitle;
     private LocalDate dateOfEmployment;
     private double baseSalary;
     private double ratePerHour;
     private boolean active;
+    private Long departmentId;
+    private Long employeeId;
 
     public String getCitizenId() {
         return citizenId;
@@ -37,15 +38,6 @@ public class ManagerResponseDTO {
 
     public ManagerResponseDTO setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-        return this;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public ManagerResponseDTO setDepartment(String department) {
-        this.department = department;
         return this;
     }
 
@@ -89,7 +81,26 @@ public class ManagerResponseDTO {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public ManagerResponseDTO setActive(boolean active) {
         this.active = active;
+        return this;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public ManagerResponseDTO setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+        return this;
+    }
+
+    public Long getEmployeeId() {
+        return employeeId;
+    }
+
+    public ManagerResponseDTO setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+        return this;
     }
 }

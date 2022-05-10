@@ -7,6 +7,7 @@ import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.Departme
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.DepartmentResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.mapper.DepartmentMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -14,49 +15,54 @@ import java.util.stream.Collectors;
 @Service
 public class DepartmentService {
     private final ServiceDAL serviceDAL;
-    private final DepartmentMapper departmantMapper;
+    private final DepartmentMapper departmentMapper;
 
     public DepartmentService(ServiceDAL serviceDAL,
                              DepartmentMapper departmantMapper)
     {
         this.serviceDAL = serviceDAL;
-        this.departmantMapper = departmantMapper;
+        this.departmentMapper = departmantMapper;
     }
 
+    @Transactional
     public DepartmentResponseDTO saveDepartment(DepartmentRequestDTO departmentRequestDTO)
     {
-        return departmantMapper.toDepartmentResponseDTO
-                (serviceDAL.saveDepartment(departmantMapper.toDepartment(departmentRequestDTO)));
+         Department department = serviceDAL.saveDepartment(departmentMapper.toDepartment(departmentRequestDTO));
+        return departmentMapper.toDepartmentResponseDTO(department);
     }
 
+    @Transactional
     public DepartmentResponseDTO updateDepartment(Long departmentId, DepartmentRequestDTO departmentRequestDTO)
     {
         Department found = serviceDAL.findDepartmentById(departmentId);
         found.setDepartmentName(departmentRequestDTO.getDepartmentName());
 
-        return departmantMapper.toDepartmentResponseDTO
+        return departmentMapper.toDepartmentResponseDTO
                 (serviceDAL.saveDepartment(found));
     }
 
+    @Transactional
     public DepartmentResponseDTO removeDepartmentById(Long departmentId)
     {
         Department department = serviceDAL.findDepartmentById(departmentId);
         Set<Employee> employeeSet = department.getEmployees();
-        for (var employee : employeeSet)
+        for (var employee : employeeSet) {
             employee.setDepartment(null);
+        }
 
-        return departmantMapper.toDepartmentResponseDTO
+        return departmentMapper.toDepartmentResponseDTO
                 (serviceDAL.removeDepartment(department));
     }
     public DepartmentResponseDTO findDepartmentById(Long departmentId)
     {
-        return departmantMapper.toDepartmentResponseDTO(serviceDAL.findDepartmentById(departmentId));
+        return departmentMapper.toDepartmentResponseDTO(serviceDAL.findDepartmentById(departmentId));
     }
 
+    @Transactional
     public List<DepartmentResponseDTO> findAllDepartmetns()
     {
         return serviceDAL.findAllDepartments().stream()
-                .map(departmantMapper::toDepartmentResponseDTO)
+                .map(departmentMapper::toDepartmentResponseDTO)
                 .collect(Collectors.toList());
     }
 

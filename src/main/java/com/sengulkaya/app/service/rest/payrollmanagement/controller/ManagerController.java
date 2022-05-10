@@ -20,26 +20,26 @@ public class ManagerController {
         this.managerService = managerService;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save")//works
     public ManagerResponseDTO saveManager(@RequestBody ManagerRequestDTO managerRequestDTO)
     {
         return managerService.saveManager(managerRequestDTO);
     }
-    @PostMapping("/update")
-    public ManagerResponseDTO updateManager(@RequestBody ManagerRequestDTO managerRequestDTO)
+    @PostMapping("/update/{id}")//"departmentId": 0, ??
+    public ManagerResponseDTO updateManager(@PathVariable("id") Long employeeId, @RequestBody ManagerRequestDTO managerRequestDTO)
     {
-        return managerService.updateManager(managerRequestDTO);
+        return managerService.updateManager(employeeId, managerRequestDTO);
     }
 
     @PostMapping("/delete")
-    public ManagerResponseDTO deleteManager(@RequestParam("citizenId") String citizenId)
+    public ManagerResponseDTO deleteManager(@RequestParam("employeeId") Long employeeId)
     {
-        return managerService.deleteManagerByCitizenId(citizenId);
+        return managerService.deleteManagerByEmployeeId(employeeId);
     }
-    @GetMapping("/find/citizenId")
-    public ManagerResponseDTO findManagerByCitizenId(@RequestParam("citizenId") String citizenId)
+    @GetMapping("/find/employeeId")
+    public ManagerResponseDTO findManagerByCitizenId(@RequestParam("employeeId") Long employeeId)
     {
-        return managerService.findManagerByCitizenId(citizenId);
+        return managerService.findManagerByEmployeeId(employeeId);
     }
 
     @GetMapping("/all")

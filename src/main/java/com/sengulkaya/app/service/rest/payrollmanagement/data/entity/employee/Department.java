@@ -1,5 +1,7 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,15 +12,16 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "department_id")
-    private long id;
+    private long departmentId;
 
     @Column(name = "department_name")
+    @NotNull
     private String departmentName;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @OrderColumn
-    //@ElementCollection(targetClass=Employee.class)
     @Column(name = "employees", nullable = false)
+    @ElementCollection(targetClass=Employee.class)
     private Set<Employee> employees = new HashSet<>();
 
     public String getDepartmentName() {
@@ -29,12 +32,12 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    public long getId() {
-        return id;
+    public long getDepartmentId() {
+        return departmentId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setDepartmentId(long departmentId) {
+        this.departmentId = departmentId;
     }
 
     public Set<Employee> getEmployees() {

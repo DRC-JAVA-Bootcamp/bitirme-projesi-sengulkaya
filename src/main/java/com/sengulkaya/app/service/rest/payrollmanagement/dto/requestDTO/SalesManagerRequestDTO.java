@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 
 public class SalesManagerRequestDTO extends ManagerRequestDTO {
-    private double bonus;
 
     @Override
     public String getCitizenId() {
@@ -14,8 +13,9 @@ public class SalesManagerRequestDTO extends ManagerRequestDTO {
     }
 
     @Override
-    public ManagerRequestDTO setCitizenId(String citizenId) {
-        return super.setCitizenId(citizenId);
+    public SalesManagerRequestDTO setCitizenId(String citizenId) {
+        super.setCitizenId(citizenId);
+        return this;
     }
 
     @Override
@@ -24,8 +24,9 @@ public class SalesManagerRequestDTO extends ManagerRequestDTO {
     }
 
     @Override
-    public ManagerRequestDTO setName(String name) {
-        return super.setName(name);
+    public SalesManagerRequestDTO setName(String name) {
+        super.setName(name);
+        return this;
     }
 
     @Override
@@ -34,19 +35,11 @@ public class SalesManagerRequestDTO extends ManagerRequestDTO {
     }
 
     @Override
-    public ManagerRequestDTO setDateOfBirth(LocalDate dateOfBirth) {
-        return super.setDateOfBirth(dateOfBirth);
+    public SalesManagerRequestDTO setDateOfBirth(LocalDate dateOfBirth) {
+        super.setDateOfBirth(dateOfBirth);
+        return this;
     }
 
-    @Override
-    public String getDepartment() {
-        return super.getDepartment();
-    }
-
-    @Override
-    public ManagerRequestDTO setDepartment(String department) {
-        return super.setDepartment(department);
-    }
 
     @Override
     public String getJobTitle() {
@@ -54,8 +47,9 @@ public class SalesManagerRequestDTO extends ManagerRequestDTO {
     }
 
     @Override
-    public ManagerRequestDTO setJobTitle(String jobTitle) {
-        return super.setJobTitle(jobTitle);
+    public SalesManagerRequestDTO setJobTitle(String jobTitle) {
+        super.setJobTitle(jobTitle);
+        return this;
     }
 
     @Override
@@ -64,8 +58,9 @@ public class SalesManagerRequestDTO extends ManagerRequestDTO {
     }
 
     @Override
-    public ManagerRequestDTO setDateOfEmployment(LocalDate dateOfEmployment) {
-        return super.setDateOfEmployment(dateOfEmployment);
+    public SalesManagerRequestDTO setDateOfEmployment(LocalDate dateOfEmployment) {
+        super.setDateOfEmployment(dateOfEmployment);
+        return this;
     }
 
     @Override
@@ -74,8 +69,9 @@ public class SalesManagerRequestDTO extends ManagerRequestDTO {
     }
 
     @Override
-    public ManagerRequestDTO setBaseSalary(double baseSalary) {
-        return super.setBaseSalary(baseSalary);
+    public SalesManagerRequestDTO setBaseSalary(double baseSalary) {
+        super.setBaseSalary(baseSalary);
+        return this;
     }
 
     @Override
@@ -84,15 +80,31 @@ public class SalesManagerRequestDTO extends ManagerRequestDTO {
     }
 
     @Override
-    public ManagerRequestDTO setRatePerHour(double ratePerHour) {
-        return super.setRatePerHour(ratePerHour);
+    public SalesManagerRequestDTO setRatePerHour(double ratePerHour) {
+        super.setRatePerHour(ratePerHour);
+        return this;
     }
 
-    public double getBonus() {
-        return bonus;
+    @Override
+    public boolean isActive() {
+        return super.isActive();
     }
 
-    public void setBonus(double bonus) {
-        this.bonus = bonus;
+    @Override
+    public SalesManagerRequestDTO setActive(boolean active) {
+        super.setActive(active);
+        return this;
     }
+
+    @Override
+    public Long getDepartmentId() {
+        return super.getDepartmentId();
+    }
+
+    @Override
+    public SalesManagerRequestDTO setDepartmentId(Long departmentId) {
+        super.setDepartmentId(departmentId);
+        return this;
+    }
+
 }

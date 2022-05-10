@@ -26,21 +26,21 @@ public class SalesManagerController {
         return salesManagerService.saveSalesManager(salesManagerRequestDTO);
     }
 
-    @PostMapping("/update")
-    public SalesManagerResponseDTO updateManager(@RequestBody SalesManagerRequestDTO salesManagerRequestDTO)
+    @PostMapping("/update/{id}")
+    public SalesManagerResponseDTO updateManager(@PathVariable("id") Long employeeId, @RequestBody SalesManagerRequestDTO salesManagerRequestDTO)
     {
-        return salesManagerService.updateSalesManager(salesManagerRequestDTO);
+        return salesManagerService.updateSalesManager(employeeId, salesManagerRequestDTO);
     }
 
     @PostMapping("/delete")
-    public SalesManagerResponseDTO deleteSalesManager(@RequestParam("citizenId") String citizenId)
+    public SalesManagerResponseDTO deleteSalesManager(@RequestParam("employeeId") Long employeeId)
     {
-        return salesManagerService.deleteSalesManagerById(citizenId);
+        return salesManagerService.deleteSalesManagerByEmployeeId(employeeId);
     }
     @GetMapping("/find/citizenId")
-    public SalesManagerResponseDTO findSalesManagerByCitizenId(@RequestParam("citizenId") String citizenId)
+    public SalesManagerResponseDTO findSalesManagerByEmployeeId(@RequestParam("employeeId") Long employeeId)
     {
-        return salesManagerService.findSalesManagerByCitizenId(citizenId);
+        return salesManagerService.findSalesManagerByEmployeeId(employeeId);
     }
 
     @GetMapping("/all")

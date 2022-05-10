@@ -31,8 +31,20 @@ public class ProjectWorkerMapper  {
 
         ProjectWorkerResponseDTO projectWorkerResponseDTO = new ProjectWorkerResponseDTO();
 
-        projectWorkerResponseDTO.setDateOfBirth( projectWorker.getDateOfBirth() );
-        projectWorkerResponseDTO.setDateOfEmployment( projectWorker.getDateOfEmployment() );
+
+        projectWorkerResponseDTO.setCitizenId( projectWorker.getCitizenId() )
+                .setName( projectWorker.getName())
+                .setDateOfBirth( projectWorker.getDateOfBirth() )
+                .setDepartmentName(projectWorker.getDepartment().getDepartmentName())
+                .setJobTitle( projectWorker.getJobTitle())
+                .setDepartmentName( projectWorker.getDepartment().getDepartmentName())
+                .setDateOfEmployment( projectWorker.getDateOfEmployment() )
+                .setBaseSalary( projectWorker.getBaseSalary())
+                .setRatePerHour( projectWorker.getRatePerHour())
+                .setActive( projectWorker.isActive())
+                .setDepartmentId( projectWorker.getDepartmentId())
+                .setEmployeeId( projectWorker.getEmployeeId())
+                .setProjectName(projectWorker.getProjectName());
 
         return projectWorkerResponseDTO;
     }

@@ -3,11 +3,13 @@ package com.sengulkaya.app.service.rest.payrollmanagement.service;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.dal.ServiceDAL;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Department;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Employee;
+import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Manager;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Worker;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.WorkerRequestDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.WorkerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.mapper.WorkerMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -25,18 +27,26 @@ public class WorkerService {
        this.workerMapper = workerMapper;
    }
 
+    @Transactional
    public WorkerResponseDTO saveWorker(WorkerRequestDTO workerRequestDTO)
    {
-       return workerMapper.toWorkerResponseDTO(serviceDAL.saveWorker(workerMapper.toWorker(workerRequestDTO)));
+       Department department = serviceDAL.findDepartmentById(workerRequestDTO.getDepartmentId());
+       Worker worker = serviceDAL.saveWorker(workerMapper.toWorker(workerRequestDTO));
+       department.getEmployees().add(worker);
+       worker.setDepartment(serviceDAL.saveDepartment(department));
+
+       return workerMapper.toWorkerResponseDTO(worker);
    }
 
-    public WorkerResponseDTO updateWorker(WorkerRequestDTO workerRequestDTO)
+    @Transactional
+    public WorkerResponseDTO updateWorker(Long employeeId, WorkerRequestDTO workerRequestDTO)
     {
-        Worker found = serviceDAL.findWorkerById(workerRequestDTO.getCitizenId());
+        Worker found = serviceDAL.findWorkerByEmployeeId(employeeId);
 
+        found.setCitizenId(workerRequestDTO.getCitizenId());
         found.setName(workerRequestDTO.getName());
         found.setDateOfBirth(workerRequestDTO.getDateOfBirth());
-        found.setDepartment(serviceDAL.findDepartmentByName(workerRequestDTO.getDepartment()));
+        found.setDepartment(serviceDAL.findDepartmentById(workerRequestDTO.getDepartmentId()));
         found.setJobTitle(workerRequestDTO.getJobTitle());
         found.setDateOfEmployment(workerRequestDTO.getDateOfEmployment());
         found.setBaseSalary(workerRequestDTO.getBaseSalary());
@@ -46,9 +56,10 @@ public class WorkerService {
         return workerMapper.toWorkerResponseDTO(serviceDAL.saveWorker(found));
     }
 
-    public WorkerResponseDTO deleteWorkerById(String citizenId)
+    @Transactional
+    public WorkerResponseDTO deleteWorkerByEmployeeId(Long employeeId)
     {
-        Worker worker = serviceDAL.findWorkerById(citizenId);
+        Worker worker = serviceDAL.findWorkerByEmployeeId(employeeId);
         Department department = worker.getDepartment();
         Set<Employee> set = department.getEmployees();
         set.remove(worker);
@@ -58,9 +69,9 @@ public class WorkerService {
                 (serviceDAL.removeWorker(worker));
     }
 
-    public WorkerResponseDTO findWorkerByCitizenId(String citizenId)
+    public WorkerResponseDTO findWorkerByEmployeeId(Long employeeId)
     {
-        return workerMapper.toWorkerResponseDTO(serviceDAL.findWorkerById(citizenId));
+        return workerMapper.toWorkerResponseDTO(serviceDAL.findWorkerByEmployeeId(employeeId));
     }
 
     public List<WorkerResponseDTO> findAllWorkers()

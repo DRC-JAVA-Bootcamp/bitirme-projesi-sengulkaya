@@ -7,6 +7,16 @@ import java.time.LocalDate;
 @Entity
 public class Worker extends Employee {
     @Override
+    public long getEmployeeId() {
+        return super.getEmployeeId();
+    }
+
+    @Override
+    public void setEmployeeId(long employeeId) {
+        super.setEmployeeId(employeeId);
+    }
+
+    @Override
     public String getCitizenId() {
         return super.getCitizenId();
     }
@@ -47,13 +57,13 @@ public class Worker extends Employee {
     }
 
     @Override
-    public long getDepartmantId() {
-        return super.getDepartmantId();
+    public long getDepartmentId() {
+        return super.getDepartmentId();
     }
 
     @Override
-    public void setDepartmantId(long departmantId) {
-        super.setDepartmantId(departmantId);
+    public void setDepartmentId(long departmentId) {
+        super.setDepartmentId(departmentId);
     }
 
     @Override

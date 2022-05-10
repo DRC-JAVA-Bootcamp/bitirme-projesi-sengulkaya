@@ -14,8 +14,7 @@ public class DepartmentRequestDTO {
         return departmentName;
     }
 
-    public void setDepartmentName(String depertmentName) {
+    public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
     }
-
 }

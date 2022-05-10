@@ -25,21 +25,21 @@ public class WorkerController {
        return workerService.saveWorker(workerRequestDTO);
     }
 
-    @PostMapping("/update")
-    public WorkerResponseDTO updateWorker(@RequestBody WorkerRequestDTO workerRequestDTO)
+    @PostMapping("/update/{id}")
+    public WorkerResponseDTO updateWorker(@PathVariable("id") Long employeeId, @RequestBody WorkerRequestDTO workerRequestDTO)
     {
-        return workerService.updateWorker(workerRequestDTO);
+        return workerService.updateWorker(employeeId, workerRequestDTO);
     }
 
     @PostMapping("/delete")
-    public WorkerResponseDTO deleteWorker(@RequestParam("citizenId") String citizenId)
+    public WorkerResponseDTO deleteWorker(@RequestParam("employeeId") Long employeeId)
     {
-        return workerService.deleteWorkerById(citizenId);
+        return workerService.deleteWorkerByEmployeeId(employeeId);
     }
     @GetMapping("/find/citizenId")
-    public WorkerResponseDTO findWorkerByCitizenId(@RequestParam("citizenId") String citizenId)
+    public WorkerResponseDTO findWorkerByEmployeeId(@RequestParam("employeeId") Long employeeId)
     {
-        return workerService.findWorkerByCitizenId(citizenId);
+        return workerService.findWorkerByEmployeeId(employeeId);
     }
 
     @GetMapping("/all")

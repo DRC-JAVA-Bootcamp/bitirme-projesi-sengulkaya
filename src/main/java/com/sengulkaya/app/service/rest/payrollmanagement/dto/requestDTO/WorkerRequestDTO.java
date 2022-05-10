@@ -9,12 +9,12 @@ public class WorkerRequestDTO {
     private String citizenId;
     private String name;
     private LocalDate dateOfBirth;//Retirement benefits?
-    private String department;
     private String jobTitle;
     private LocalDate dateOfEmployment;
     private double baseSalary;
     private double ratePerHour;
     private boolean active;
+    private Long departmentId;
 
 
     public String getCitizenId() {
@@ -44,14 +44,6 @@ public class WorkerRequestDTO {
         return this;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public WorkerRequestDTO setDepartment(String department) {
-        this.department = department;
-        return this;
-    }
 
     public String getJobTitle() {
         return jobTitle;
@@ -93,7 +85,18 @@ public class WorkerRequestDTO {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public WorkerRequestDTO setActive(boolean active) {
         this.active = active;
+        return this;
     }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public WorkerRequestDTO setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+        return this;
+    }
+
 }

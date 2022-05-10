@@ -8,14 +8,16 @@ import java.time.LocalDate;
 public class ProjectWorkerRequestDTO extends WorkerRequestDTO {
     private String projectName;
 
+
     @Override
     public String getCitizenId() {
         return super.getCitizenId();
     }
 
     @Override
-    public WorkerRequestDTO setCitizenId(String citizenId) {
-        return super.setCitizenId(citizenId);
+    public ProjectWorkerRequestDTO setCitizenId(String citizenId) {
+        super.setCitizenId(citizenId);
+        return this;
     }
 
     @Override
@@ -24,8 +26,9 @@ public class ProjectWorkerRequestDTO extends WorkerRequestDTO {
     }
 
     @Override
-    public WorkerRequestDTO setName(String name) {
-        return super.setName(name);
+    public ProjectWorkerRequestDTO setName(String name) {
+        super.setName(name);
+        return this;
     }
 
     @Override
@@ -34,19 +37,11 @@ public class ProjectWorkerRequestDTO extends WorkerRequestDTO {
     }
 
     @Override
-    public WorkerRequestDTO setDateOfBirth(LocalDate dateOfBirth) {
-        return super.setDateOfBirth(dateOfBirth);
+    public ProjectWorkerRequestDTO setDateOfBirth(LocalDate dateOfBirth) {
+        super.setDateOfBirth(dateOfBirth);
+        return this;
     }
 
-    @Override
-    public String getDepartment() {
-        return super.getDepartment();
-    }
-
-    @Override
-    public WorkerRequestDTO setDepartment(String department) {
-        return super.setDepartment(department);
-    }
 
     @Override
     public String getJobTitle() {
@@ -54,8 +49,9 @@ public class ProjectWorkerRequestDTO extends WorkerRequestDTO {
     }
 
     @Override
-    public WorkerRequestDTO setJobTitle(String jobTitle) {
-        return super.setJobTitle(jobTitle);
+    public ProjectWorkerRequestDTO setJobTitle(String jobTitle) {
+        super.setJobTitle(jobTitle);
+        return this;
     }
 
     @Override
@@ -64,8 +60,9 @@ public class ProjectWorkerRequestDTO extends WorkerRequestDTO {
     }
 
     @Override
-    public WorkerRequestDTO setDateOfEmployment(LocalDate dateOfEmployment) {
-        return super.setDateOfEmployment(dateOfEmployment);
+    public ProjectWorkerRequestDTO setDateOfEmployment(LocalDate dateOfEmployment) {
+        super.setDateOfEmployment(dateOfEmployment);
+        return this;
     }
 
     @Override
@@ -74,8 +71,9 @@ public class ProjectWorkerRequestDTO extends WorkerRequestDTO {
     }
 
     @Override
-    public WorkerRequestDTO setBaseSalary(double baseSalary) {
-        return super.setBaseSalary(baseSalary);
+    public ProjectWorkerRequestDTO setBaseSalary(double baseSalary) {
+        super.setBaseSalary(baseSalary);
+        return this;
     }
 
     @Override
@@ -84,15 +82,39 @@ public class ProjectWorkerRequestDTO extends WorkerRequestDTO {
     }
 
     @Override
-    public WorkerRequestDTO setRatePerHour(double ratePerHour) {
-        return super.setRatePerHour(ratePerHour);
+    public ProjectWorkerRequestDTO setRatePerHour(double ratePerHour) {
+        super.setRatePerHour(ratePerHour);
+        return this;
+    }
+
+    @Override
+    public boolean isActive() {
+        return super.isActive();
+    }
+
+    @Override
+    public ProjectWorkerRequestDTO setActive(boolean active) {
+        super.setActive(active);
+        return this;
+    }
+
+    @Override
+    public Long getDepartmentId() {
+        return super.getDepartmentId();
+    }
+
+    @Override
+    public ProjectWorkerRequestDTO setDepartmentId(Long departmentId) {
+        super.setDepartmentId(departmentId);
+        return this;
     }
 
     public String getProjectName() {
         return projectName;
     }
 
-    public void setProjectName(String projectName) {
+    public ProjectWorkerRequestDTO setProjectName(String projectName) {
         this.projectName = projectName;
+        return this;
     }
 }

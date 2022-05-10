@@ -15,8 +15,16 @@ public class ManagerMapper {
 
         Manager manager = new Manager();
 
-        manager.setDateOfBirth( managerRequestDTO.getDateOfBirth() );
+        manager.setCitizenId( managerRequestDTO.getCitizenId());
+        manager.setName( managerRequestDTO.getName());
+        manager.setDateOfBirth( managerRequestDTO.getDateOfBirth());
+        manager.setJobTitle(managerRequestDTO.getJobTitle());
         manager.setDateOfEmployment( managerRequestDTO.getDateOfEmployment() );
+        manager.setBaseSalary( managerRequestDTO.getBaseSalary() );
+        manager.setRatePerHour( managerRequestDTO.getRatePerHour() );
+        manager.setActive( managerRequestDTO.isActive());
+        manager.setDepartmentId( managerRequestDTO.getDepartmentId());
+
 
         return manager;
     }
@@ -29,8 +37,16 @@ public class ManagerMapper {
 
         ManagerResponseDTO managerResponseDTO = new ManagerResponseDTO();
 
-        managerResponseDTO.setDateOfBirth( manager.getDateOfBirth() );
-        managerResponseDTO.setDateOfEmployment( manager.getDateOfEmployment() );
+        managerResponseDTO.setCitizenId( manager.getCitizenId() )
+                .setName( manager.getName())
+                .setDateOfBirth( manager.getDateOfBirth() )
+                .setJobTitle(manager.getJobTitle())
+                .setDateOfEmployment( manager.getDateOfEmployment() )
+                .setBaseSalary( manager.getBaseSalary())
+                .setRatePerHour( manager.getRatePerHour())
+                .setActive( manager.isActive())
+                .setDepartmentId( manager.getDepartmentId())
+                .setEmployeeId( manager.getEmployeeId());
 
         return managerResponseDTO;
     }
