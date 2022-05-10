@@ -43,16 +43,28 @@ public class ProjectWorkerService  {
     {
         ProjectWorker found = serviceDAL.findProjectWorkerByEmployeeId(employeeId);
 
+        // private String citizenId;
+        //    private String name;
+        //    private LocalDate dateOfBirth;//Retirement benefits?
+        //    private String jobTitle;
+        //    private LocalDate dateOfEmployment;
+        //    private LocalDate dateOfLeave;
+        //    private double baseSalary;
+        //    private double ratePerHour;
+        //    private boolean active;
+        //    private Long departmentId;
         found.setCitizenId(projectWorkerRequestDTO.getCitizenId());
         found.setName(projectWorkerRequestDTO.getName());
         found.setDateOfBirth(projectWorkerRequestDTO.getDateOfBirth());
         found.setDepartment(serviceDAL.findDepartmentById(projectWorkerRequestDTO.getDepartmentId()));
         found.setJobTitle(projectWorkerRequestDTO.getJobTitle());
         found.setDateOfEmployment(projectWorkerRequestDTO.getDateOfEmployment());
+        found.setDateOfLeave(projectWorkerRequestDTO.getDateOfLeave());
         found.setBaseSalary(projectWorkerRequestDTO.getBaseSalary());
         found.setRatePerHour(projectWorkerRequestDTO.getRatePerHour());
         found.setProjectName(projectWorkerRequestDTO.getProjectName());
         found.setActive(projectWorkerRequestDTO.isActive());
+        found.setDepartmentId(projectWorkerRequestDTO.getDepartmentId());
 
         return projectWorkerMapper.toProjectWorkerResponseDTO(serviceDAL.saveProjectWorker(found));
     }

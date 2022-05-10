@@ -23,10 +23,11 @@ public class SalesManagerMapper extends ManagerMapper {
         salesManager.setDateOfBirth( salesManagerRequestDTO.getDateOfBirth());
         salesManager.setJobTitle(salesManagerRequestDTO.getJobTitle());
         salesManager.setDateOfEmployment( salesManagerRequestDTO.getDateOfEmployment() );
+        salesManager.setDateOfLeave( salesManagerRequestDTO.getDateOfLeave() );
         salesManager.setBaseSalary( salesManagerRequestDTO.getBaseSalary() );
         salesManager.setRatePerHour( salesManagerRequestDTO.getRatePerHour() );
         salesManager.setActive( salesManagerRequestDTO.isActive());
-        //salesManager.setDepartmentId( salesManagerRequestDTO.getDepartmentId());
+        salesManager.setDepartmentId( salesManagerRequestDTO.getDepartmentId());
 
 
         return salesManager;
@@ -39,22 +40,28 @@ public class SalesManagerMapper extends ManagerMapper {
             return null;
         }
 
+
+
         SalesManagerResponseDTO salesManagerResponseDTO = new SalesManagerResponseDTO();
+
+
+        //    private double sales;
+        //    private Long departmentId;
 
         salesManagerResponseDTO.setCitizenId( salesManager.getCitizenId() )
             .setName( salesManager.getName())
             .setDateOfBirth( salesManager.getDateOfBirth() )
             .setJobTitle( salesManager.getJobTitle())
-                .setDepartmentName(salesManager.getDepartment().getDepartmentName())
             .setDateOfEmployment( salesManager.getDateOfEmployment() )
             .setBaseSalary( salesManager.getBaseSalary())
             .setRatePerHour( salesManager.getRatePerHour())
             .setActive( salesManager.isActive())
-            .setDepartmentId( salesManager.getDepartmentId())
+            .setDepartmentId( salesManager.getDepartment().getDepartmentId())
             .setEmployeeId( salesManager.getEmployeeId())
                 .setBonus(salesManager.getBonus());
 
-        return salesManagerResponseDTO;
+
+        return salesManagerResponseDTO.setSales(salesManager.getSales());
     }
 }
 

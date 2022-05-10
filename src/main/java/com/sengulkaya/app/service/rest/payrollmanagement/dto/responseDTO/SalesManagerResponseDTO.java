@@ -6,7 +6,6 @@ public class SalesManagerResponseDTO {
     private String citizenId;
     private String name;
     private LocalDate dateOfBirth;//Retirement benefits?
-    private String departmentName;
     private String jobTitle;
     private LocalDate dateOfEmployment;
     private double baseSalary;
@@ -54,14 +53,6 @@ public class SalesManagerResponseDTO {
         return this;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public SalesManagerResponseDTO setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-        return this;
-    }
 
     public LocalDate getDateOfEmployment() {
         return dateOfEmployment;

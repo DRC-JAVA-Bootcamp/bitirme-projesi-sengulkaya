@@ -20,30 +20,30 @@ public class SalesManagerController {
         this.salesManagerService = salesManagerService;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save")//works
     public SalesManagerResponseDTO saveSalesManager(@RequestBody SalesManagerRequestDTO salesManagerRequestDTO)
     {
         return salesManagerService.saveSalesManager(salesManagerRequestDTO);
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/update/{id}")//works
     public SalesManagerResponseDTO updateManager(@PathVariable("id") Long employeeId, @RequestBody SalesManagerRequestDTO salesManagerRequestDTO)
     {
         return salesManagerService.updateSalesManager(employeeId, salesManagerRequestDTO);
     }
 
-    @PostMapping("/delete/employeeId")
+    @PostMapping("/delete/employeeId")//works
     public SalesManagerResponseDTO deleteSalesManager(@RequestParam("employeeId") Long employeeId)
     {
         return salesManagerService.deleteSalesManagerByEmployeeId(employeeId);
     }
-    @GetMapping("/find/employeeId")
+    @GetMapping("/find/employeeId")//works
     public SalesManagerResponseDTO findSalesManagerByEmployeeId(@RequestParam("employeeId") Long employeeId)
     {
         return salesManagerService.findSalesManagerByEmployeeId(employeeId);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all")//works
     public List<SalesManagerResponseDTO> findAllSalesManagers()
     {
         return salesManagerService.findAllSalesManagers();
