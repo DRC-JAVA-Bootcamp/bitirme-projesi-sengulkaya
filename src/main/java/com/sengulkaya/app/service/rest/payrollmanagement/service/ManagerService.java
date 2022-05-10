@@ -42,17 +42,27 @@ public class ManagerService {
     {
         Manager found = serviceDAL.findManagerByEmployeeId(employeeId);
 
+        //    private String citizenId;
+        //    private String name;
+        //    private LocalDate dateOfBirth;//Retirement benefits?
+        //    private String jobTitle;
+        //    private LocalDate dateOfEmployment;
+        //    private LocalDate dateOfLeave;
+        //    private double baseSalary;
+        //    private double ratePerHour;
+        //    private boolean active;
+        //    private Long departmentId;
 
         found.setCitizenId(managerRequestDTO.getCitizenId());
         found.setName(managerRequestDTO.getName());
         found.setDateOfBirth(managerRequestDTO.getDateOfBirth());
-        found.setDepartment(serviceDAL.findDepartmentById(managerRequestDTO.getDepartmentId()));
         found.setJobTitle(managerRequestDTO.getJobTitle());
         found.setDateOfEmployment(managerRequestDTO.getDateOfEmployment());
+        found.setDateOfLeave(managerRequestDTO.getDateOfLeave());
         found.setBaseSalary(managerRequestDTO.getBaseSalary());
         found.setRatePerHour(managerRequestDTO.getRatePerHour());
         found.setActive(managerRequestDTO.isActive());
-
+        found.setDepartment(serviceDAL.findDepartmentById(managerRequestDTO.getDepartmentId()));
 
         return managerMapper.toManagerResponseDTO(serviceDAL.saveManager(found));
     }

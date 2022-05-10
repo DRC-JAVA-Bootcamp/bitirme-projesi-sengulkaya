@@ -25,24 +25,25 @@ public class ManagerController {
     {
         return managerService.saveManager(managerRequestDTO);
     }
-    @PostMapping("/update/{id}")//"departmentId": 0, ??
+    @PostMapping("/update/{id}")//works
     public ManagerResponseDTO updateManager(@PathVariable("id") Long employeeId, @RequestBody ManagerRequestDTO managerRequestDTO)
     {
         return managerService.updateManager(employeeId, managerRequestDTO);
     }
 
-    @PostMapping("/delete")
+
+    @PostMapping("/delete/employeeId")//works, java.util.NoSuchElementException: No value present
     public ManagerResponseDTO deleteManager(@RequestParam("employeeId") Long employeeId)
     {
         return managerService.deleteManagerByEmployeeId(employeeId);
     }
-    @GetMapping("/find/employeeId")
+    @GetMapping("/find/employeeId")//works
     public ManagerResponseDTO findManagerByCitizenId(@RequestParam("employeeId") Long employeeId)
     {
         return managerService.findManagerByEmployeeId(employeeId);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all")//works
     public List<ManagerResponseDTO> findAllManagers()
     {
         return managerService.findAllManagers();

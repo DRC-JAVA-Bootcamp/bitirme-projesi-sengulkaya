@@ -45,7 +45,7 @@ public class ManagerMapper {
                 .setBaseSalary( manager.getBaseSalary())
                 .setRatePerHour( manager.getRatePerHour())
                 .setActive( manager.isActive())
-                .setDepartmentId( manager.getDepartmentId())
+                .setDepartmentId( manager.getDepartment().getDepartmentId())
                 .setEmployeeId( manager.getEmployeeId());
 
         return managerResponseDTO;
