@@ -4,16 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-//  private String citizenId;
-//    private String name;
-//    private LocalDate dateOfBirth;//Retirement benefits?
-//    private String jobTitle;
-//    private LocalDate dateOfEmployment;
-//    private LocalDate dateOfLeave;
-//    private double baseSalary;
-//    private double ratePerHour;
-//    private boolean active;
-//    private Long departmentId;
+
 public class WorkerRequestDTO {
     private String citizenId;
     private String name;

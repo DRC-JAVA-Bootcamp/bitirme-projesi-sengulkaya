@@ -19,13 +19,13 @@ public class ProjectWorkerController {
         this.projectWorkerService = projectWorkerService;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save")//works
     public ProjectWorkerResponseDTO saveProjectWorker(@RequestBody ProjectWorkerRequestDTO projectWorkerRequestDTO)
     {
         return projectWorkerService.saveProjectWorker(projectWorkerRequestDTO);
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/update/{id}")//works
     public ProjectWorkerResponseDTO updateProjectWorker(@PathVariable("id") Long employeeId, @RequestBody ProjectWorkerRequestDTO projectWorkerRequestDTO)
     {
         return projectWorkerService.updateProjectWorker(employeeId, projectWorkerRequestDTO);
@@ -36,13 +36,13 @@ public class ProjectWorkerController {
     {
         return projectWorkerService.deleteProjectWorkerByEmployeeId(employeeId);
     }
-    @GetMapping("/find/employeeId")
+    @GetMapping("/find/employeeId")//works
     public ProjectWorkerResponseDTO findProjectWorkerByEmployeeId(@RequestParam("employeeId") Long employeeId)
     {
         return projectWorkerService.findProjectWorkerByEmployeeId(employeeId);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all")//works
     public List<ProjectWorkerResponseDTO> findAllProjectWorkers()
     {
         return projectWorkerService.findAllProjectWorkers();

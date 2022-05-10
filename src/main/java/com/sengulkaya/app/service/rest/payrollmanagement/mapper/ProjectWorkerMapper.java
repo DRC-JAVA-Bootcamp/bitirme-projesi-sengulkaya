@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class ProjectWorkerMapper  {
 
@@ -16,10 +18,21 @@ public class ProjectWorkerMapper  {
             return null;
         }
 
+
         ProjectWorker projectWorker = new ProjectWorker();
 
+        projectWorker.setCitizenId( projectWorkerRequestDTO.getCitizenId() );
+        projectWorker.setName( projectWorkerRequestDTO.getName() );
         projectWorker.setDateOfBirth( projectWorkerRequestDTO.getDateOfBirth() );
+        projectWorker.setJobTitle( projectWorkerRequestDTO.getJobTitle() );
         projectWorker.setDateOfEmployment( projectWorkerRequestDTO.getDateOfEmployment() );
+        projectWorker.setDateOfLeave( projectWorkerRequestDTO.getDateOfLeave() );
+        projectWorker.setBaseSalary( projectWorkerRequestDTO.getBaseSalary() );
+        projectWorker.setRatePerHour( projectWorkerRequestDTO.getRatePerHour() );
+        projectWorker.setActive( projectWorkerRequestDTO.isActive() );
+        projectWorker.setDepartmentId( projectWorkerRequestDTO.getDepartmentId() );
+        projectWorker.setProjectName( projectWorkerRequestDTO.getProjectName() );
+
 
         return projectWorker;
     }
@@ -30,7 +43,6 @@ public class ProjectWorkerMapper  {
         }
 
         ProjectWorkerResponseDTO projectWorkerResponseDTO = new ProjectWorkerResponseDTO();
-
 
         projectWorkerResponseDTO.setCitizenId( projectWorker.getCitizenId() )
                 .setName( projectWorker.getName())
