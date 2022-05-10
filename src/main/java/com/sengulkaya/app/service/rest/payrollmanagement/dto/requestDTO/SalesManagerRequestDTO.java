@@ -64,6 +64,17 @@ public class SalesManagerRequestDTO extends ManagerRequestDTO {
     }
 
     @Override
+    public LocalDate getDateOfLeave() {
+        return super.getDateOfLeave();
+    }
+
+    @Override
+    public SalesManagerRequestDTO setDateOfLeave(LocalDate dateOfLeave) {
+        super.setDateOfLeave(dateOfLeave);
+        return this;
+    }
+
+    @Override
     public double getBaseSalary() {
         return super.getBaseSalary();
     }

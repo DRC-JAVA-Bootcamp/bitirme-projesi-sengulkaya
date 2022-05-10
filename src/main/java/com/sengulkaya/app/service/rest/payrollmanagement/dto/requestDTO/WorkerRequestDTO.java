@@ -4,13 +4,23 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-
+//  private String citizenId;
+//    private String name;
+//    private LocalDate dateOfBirth;//Retirement benefits?
+//    private String jobTitle;
+//    private LocalDate dateOfEmployment;
+//    private LocalDate dateOfLeave;
+//    private double baseSalary;
+//    private double ratePerHour;
+//    private boolean active;
+//    private Long departmentId;
 public class WorkerRequestDTO {
     private String citizenId;
     private String name;
     private LocalDate dateOfBirth;//Retirement benefits?
     private String jobTitle;
     private LocalDate dateOfEmployment;
+    private LocalDate dateOfLeave;
     private double baseSalary;
     private double ratePerHour;
     private boolean active;
@@ -60,6 +70,15 @@ public class WorkerRequestDTO {
 
     public WorkerRequestDTO setDateOfEmployment(LocalDate dateOfEmployment) {
         this.dateOfEmployment = dateOfEmployment;
+        return this;
+    }
+
+    public LocalDate getDateOfLeave() {
+        return dateOfLeave;
+    }
+
+    public WorkerRequestDTO setDateOfLeave(LocalDate dateOfLeave) {
+        this.dateOfLeave = dateOfLeave;
         return this;
     }
 

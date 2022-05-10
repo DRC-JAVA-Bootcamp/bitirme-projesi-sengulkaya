@@ -42,7 +42,7 @@ public class ProjectWorkerMapper  {
                 .setBaseSalary( projectWorker.getBaseSalary())
                 .setRatePerHour( projectWorker.getRatePerHour())
                 .setActive( projectWorker.isActive())
-                .setDepartmentId( projectWorker.getDepartmentId())
+                .setDepartmentId( projectWorker.getDepartment().getDepartmentId())
                 .setEmployeeId( projectWorker.getEmployeeId())
                 .setProjectName(projectWorker.getProjectName());
 

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 public class SalesManager extends Manager {
+    private double sales;
     private double bonus;
 
     @Override
@@ -140,6 +141,14 @@ public class SalesManager extends Manager {
     @Override
     public double calculateInsurancePayment(double pay) {
         return super.calculateInsurancePayment(pay);
+    }
+
+    public double getSales() {
+        return sales;
+    }
+
+    public void setSales(double sales) {
+        this.sales = sales;
     }
 
     public double getBonus() {

@@ -21,7 +21,7 @@ public class SalesManagerController {
     }
 
     @PostMapping("/save")
-    public SalesManagerResponseDTO saveSalesManager(@RequestParam SalesManagerRequestDTO salesManagerRequestDTO)
+    public SalesManagerResponseDTO saveSalesManager(@RequestBody SalesManagerRequestDTO salesManagerRequestDTO)
     {
         return salesManagerService.saveSalesManager(salesManagerRequestDTO);
     }
@@ -32,12 +32,12 @@ public class SalesManagerController {
         return salesManagerService.updateSalesManager(employeeId, salesManagerRequestDTO);
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/delete/employeeId")
     public SalesManagerResponseDTO deleteSalesManager(@RequestParam("employeeId") Long employeeId)
     {
         return salesManagerService.deleteSalesManagerByEmployeeId(employeeId);
     }
-    @GetMapping("/find/citizenId")
+    @GetMapping("/find/employeeId")
     public SalesManagerResponseDTO findSalesManagerByEmployeeId(@RequestParam("employeeId") Long employeeId)
     {
         return salesManagerService.findSalesManagerByEmployeeId(employeeId);

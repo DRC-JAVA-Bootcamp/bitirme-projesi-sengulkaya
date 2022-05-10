@@ -19,31 +19,31 @@ public class WorkerController {
         this.workerService = workerService;
     }
 
-    @PostMapping("/save")
-    public WorkerResponseDTO saveWorker(WorkerRequestDTO workerRequestDTO) throws Exception
+    @PostMapping("/save")//works
+    public WorkerResponseDTO saveWorker(@RequestBody WorkerRequestDTO workerRequestDTO) throws Exception
     {
        return workerService.saveWorker(workerRequestDTO);
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/update/{id}")//works
     public WorkerResponseDTO updateWorker(@PathVariable("id") Long employeeId, @RequestBody WorkerRequestDTO workerRequestDTO)
     {
         return workerService.updateWorker(employeeId, workerRequestDTO);
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/delete/employeeId")//works
     public WorkerResponseDTO deleteWorker(@RequestParam("employeeId") Long employeeId)
     {
         return workerService.deleteWorkerByEmployeeId(employeeId);
     }
-    @GetMapping("/find/citizenId")
+    @GetMapping("/find/employeeId")//works
     public WorkerResponseDTO findWorkerByEmployeeId(@RequestParam("employeeId") Long employeeId)
     {
         return workerService.findWorkerByEmployeeId(employeeId);
     }
 
-    @GetMapping("/all")
-    public List<WorkerResponseDTO> findAllProjectWorkers()
+    @GetMapping("/all")//works
+    public List<WorkerResponseDTO> findAllWorkers()
     {
         return workerService.findAllWorkers();
     }

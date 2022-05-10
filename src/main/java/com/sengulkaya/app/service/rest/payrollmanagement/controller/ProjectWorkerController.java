@@ -31,12 +31,12 @@ public class ProjectWorkerController {
         return projectWorkerService.updateProjectWorker(employeeId, projectWorkerRequestDTO);
     }
 
-    @PostMapping("/delete")
-    public ProjectWorkerResponseDTO deleteprojectWorker(@RequestParam("employeeId") Long employeeId)
+    @PostMapping("/delete/employeeId")
+    public ProjectWorkerResponseDTO deleteProjectWorker(@RequestParam("employeeId") Long employeeId)
     {
         return projectWorkerService.deleteProjectWorkerByEmployeeId(employeeId);
     }
-    @GetMapping("/find/citizenId")
+    @GetMapping("/find/employeeId")
     public ProjectWorkerResponseDTO findProjectWorkerByEmployeeId(@RequestParam("employeeId") Long employeeId)
     {
         return projectWorkerService.findProjectWorkerByEmployeeId(employeeId);

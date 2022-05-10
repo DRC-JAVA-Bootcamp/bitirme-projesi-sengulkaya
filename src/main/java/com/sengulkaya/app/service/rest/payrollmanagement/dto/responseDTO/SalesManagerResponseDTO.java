@@ -12,6 +12,7 @@ public class SalesManagerResponseDTO {
     private double baseSalary;
     private double ratePerHour;
     private boolean active;
+    private double sales;
     private double bonus;
     private Long departmentId;
     private Long employeeId;
@@ -42,7 +43,6 @@ public class SalesManagerResponseDTO {
         this.dateOfBirth = dateOfBirth;
         return this;
     }
-
 
 
     public String getJobTitle() {
@@ -97,6 +97,15 @@ public class SalesManagerResponseDTO {
 
     public SalesManagerResponseDTO setActive(boolean active) {
         this.active = active;
+        return this;
+    }
+
+    public double getSales() {
+        return sales;
+    }
+
+    public SalesManagerResponseDTO setSales(double sales) {
+        this.sales = sales;
         return this;
     }
 

@@ -33,6 +33,7 @@ public class ServiceDAL {
         this.departmentRepository = departmentRepository;
     }
 
+
     public Worker saveWorker(Worker worker) {
         return workerRepository.save(worker);
     }
@@ -97,10 +98,6 @@ public class ServiceDAL {
         return salesManager;
     }
 
-    public Department removeDepartment(Department department) {
-        departmentRepository.delete(department);
-        return department;
-    }
 
     public List<Worker> findAllWorkers() {
         return StreamSupport.stream(workerRepository.findAll().spliterator(), false)

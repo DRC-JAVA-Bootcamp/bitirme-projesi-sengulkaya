@@ -1,14 +1,14 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.service;
 
 import com.sengulkaya.app.service.rest.payrollmanagement.data.dal.ServiceDAL;
-import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Department;
-import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Employee;
+import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.*;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.DepartmentRequestDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.DepartmentResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.mapper.DepartmentMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,25 +41,13 @@ public class DepartmentService {
                 (serviceDAL.saveDepartment(found));
     }
 
-    @Transactional
-    public DepartmentResponseDTO removeDepartmentById(Long departmentId)
-    {
-        Department department = serviceDAL.findDepartmentById(departmentId);
-        Set<Employee> employeeSet = department.getEmployees();
-        for (var employee : employeeSet) {
-            employee.setDepartment(null);
-        }
-
-        return departmentMapper.toDepartmentResponseDTO
-                (serviceDAL.removeDepartment(department));
-    }
     public DepartmentResponseDTO findDepartmentById(Long departmentId)
     {
         return departmentMapper.toDepartmentResponseDTO(serviceDAL.findDepartmentById(departmentId));
     }
 
     @Transactional
-    public List<DepartmentResponseDTO> findAllDepartmetns()
+    public List<DepartmentResponseDTO> findAllDepartments()
     {
         return serviceDAL.findAllDepartments().stream()
                 .map(departmentMapper::toDepartmentResponseDTO)
