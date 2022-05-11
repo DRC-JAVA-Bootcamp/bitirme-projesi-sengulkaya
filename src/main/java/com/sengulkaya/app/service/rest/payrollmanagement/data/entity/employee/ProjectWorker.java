@@ -137,16 +137,21 @@ public class ProjectWorker extends Worker {
         super.setActive(active);
     }
 
-    @Override
-    public double calculateInsurancePayment(double pay) {
-        return super.calculateInsurancePayment(pay);
-    }
-
     public String getProjectName() {
         return projectName;
     }
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    @Override
+    public double calculateTotalPayment() {
+        return super.calculateTotalPayment();
+    }
+
+    @Override
+    public double calculateInsurancePayment() {
+        return super.calculateInsurancePayment();
     }
 }

@@ -1,7 +1,7 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.contracts;
 
 public interface ILifeInsurance {
-    private IncomeBracket setBraket(double val)
+    default IncomeBracket setBraket(double val)
     {
         IncomeBracket incomeBracket = null;
         if (val <= 10000)
@@ -14,8 +14,5 @@ public interface ILifeInsurance {
             incomeBracket = IncomeBracket.UPPER;
         return incomeBracket;
     }
-    default double calculateInsurancePayment(double pay)//bonus + extra + base salary...
-    {
-        return setBraket(pay).getPercentile() * pay;
-    }
+    double calculateInsurancePayment();//bonus + extra + base salary...
 }

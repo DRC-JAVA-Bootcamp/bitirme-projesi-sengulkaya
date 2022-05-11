@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 @Entity
 public class Manager extends Employee{
+
     @Override
     public long getEmployeeId() {
         return super.getEmployeeId();
@@ -137,8 +138,12 @@ public class Manager extends Employee{
     }
 
     @Override
-    public double calculateInsurancePayment(double pay) {
-        return super.calculateInsurancePayment(pay);
+    public double calculateTotalPayment() {
+        return super.calculateTotalPayment();
     }
 
+    @Override
+    public double calculateInsurancePayment() {
+        return super.calculateInsurancePayment();
+    }
 }

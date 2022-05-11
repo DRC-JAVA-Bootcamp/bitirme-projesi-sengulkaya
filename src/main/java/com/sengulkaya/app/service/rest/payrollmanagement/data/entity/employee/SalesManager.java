@@ -138,10 +138,6 @@ public class SalesManager extends Manager {
         super.setActive(active);
     }
 
-    @Override
-    public double calculateInsurancePayment(double pay) {
-        return super.calculateInsurancePayment(pay);
-    }
 
     public double getSales() {
         return sales;
@@ -149,6 +145,9 @@ public class SalesManager extends Manager {
 
     public void setSales(double sales) {
         this.sales = sales;
+
+        if (sales > 50000)
+            setBonus(sales * 0.2);
     }
 
     public double getBonus() {
@@ -156,6 +155,16 @@ public class SalesManager extends Manager {
     }
 
     public void setBonus(double bonus) {
-        this.bonus = bonus;
+        this.bonus += bonus;
+    }
+
+    @Override
+    public double calculateTotalPayment() {
+        return super.calculateTotalPayment() + bonus;
+    }
+
+    @Override
+    public double calculateInsurancePayment() {
+        return super.calculateInsurancePayment();
     }
 }

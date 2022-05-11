@@ -1,11 +1,13 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee;
 
+import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.contracts.HeavyConstructionInsurance;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-public class Worker extends Employee {
+public class Worker extends Employee implements HeavyConstructionInsurance {
     @Override
     public long getEmployeeId() {
         return super.getEmployeeId();
@@ -136,9 +138,14 @@ public class Worker extends Employee {
         super.setActive(active);
     }
 
+
     @Override
-    public double calculateInsurancePayment(double pay) {
-        return super.calculateInsurancePayment(pay);
+    public double calculateTotalPayment() {
+        return super.calculateTotalPayment();
     }
 
+    @Override
+    public double calculateInsurancePayment() {
+        return super.calculateInsurancePayment();
+    }
 }

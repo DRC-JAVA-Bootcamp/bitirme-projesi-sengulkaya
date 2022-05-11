@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "Employees")
@@ -57,6 +59,8 @@ public abstract class Employee implements ILifeInsurance {
 
     @Column(name = "active", nullable = false)
     private boolean active;
+
+
 
     public long getEmployeeId() {
         return employeeId;
@@ -160,5 +164,15 @@ public abstract class Employee implements ILifeInsurance {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public double calculateTotalPayment() {
+        return getBaseSalary() + getOvertime() * getRatePerHour();
+    }
+
+    @Override
+    public double calculateInsurancePayment() {
+        double total = calculateTotalPayment();
+        return total * setBraket(total).getPercentile();
     }
 }
