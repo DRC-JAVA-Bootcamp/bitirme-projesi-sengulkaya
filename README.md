@@ -10,11 +10,14 @@ Life Insurance Payment Calculator Controller enables the user (Human Resources) 
 There can be more controllers for each employee contract.
 
 ### Technologies
+___
+
 - Java
 - Spring Boot
 - Spring Data JPA
 
 ### UML Diagram
+
 
 ![Payroll Management Project UML Diagram](bitirme-projesi-sengulkaya-master.png?raw=True)
 
