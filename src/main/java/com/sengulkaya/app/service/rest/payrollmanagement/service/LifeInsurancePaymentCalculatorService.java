@@ -21,10 +21,13 @@ public class LifeInsurancePaymentCalculatorService {
 
     public List<Employee> findAllEmployees()
     {
+        serviceDAL.findAllEmployees().stream()
+                .forEach(e -> System.out.println(e.getClass()));
+
         return serviceDAL.findAllEmployees().stream()
                 .filter(Employee::isActive)
-                .filter(employee -> employee instanceof ILifeInsurance)
-                .collect(Collectors.toList());//more meaningful when some employees're under different kind of  contract.
+                .filter(employee -> employee instanceof ILifeInsurance)//more meaningful when employees're under different kind of  contracts.
+                .collect(Collectors.toList());
 
 
     }

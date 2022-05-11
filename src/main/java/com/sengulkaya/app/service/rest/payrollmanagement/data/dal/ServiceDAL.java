@@ -139,6 +139,9 @@ public class ServiceDAL {
         list.addAll(StreamSupport.stream(projectWorkerRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList()));
 
+        for (var val : list)
+            System.out.println(val.getClass());
+
         return list;
     }
 }

@@ -25,14 +25,9 @@ public class LifeInsurancePaymentCalculator {
         this.lifeInsurancePaymentCalculatorService = lifeInsurancePaymentCalculatorService;
     }
 
-    @GetMapping("/calculate/payments")
+    @GetMapping("/calculate/payments")//Gives the answer 2x for the same employee!!!
     public List<Double> calculateLifeInsurancePayments()
     {
-        System.out.println("--------------------------------------------------------");
-        lifeInsurancePaymentCalculatorService.findAllEmployees().stream()
-                .forEach(employee -> System.out.println(employee.calculateTotalPayment()));
-        System.out.println("--------------------------------------------------------");
-
         return lifeInsurancePaymentCalculatorService.findAllEmployees().stream()
                 .mapToDouble(ILifeInsurance::calculateInsurancePayment)
                 .boxed()

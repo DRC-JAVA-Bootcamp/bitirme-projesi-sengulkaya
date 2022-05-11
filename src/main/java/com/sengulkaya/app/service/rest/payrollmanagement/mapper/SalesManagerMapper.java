@@ -28,6 +28,7 @@ public class SalesManagerMapper extends ManagerMapper {
         salesManager.setRatePerHour( salesManagerRequestDTO.getRatePerHour() );
         salesManager.setActive( salesManagerRequestDTO.isActive());
         salesManager.setDepartmentId( salesManagerRequestDTO.getDepartmentId());
+        salesManager.setSales( salesManagerRequestDTO.getSales());
 
 
         return salesManager;
@@ -58,10 +59,11 @@ public class SalesManagerMapper extends ManagerMapper {
             .setActive( salesManager.isActive())
             .setDepartmentId( salesManager.getDepartment().getDepartmentId())
             .setEmployeeId( salesManager.getEmployeeId())
+                .setSales(salesManager.getSales())
                 .setBonus(salesManager.getBonus());
 
 
-        return salesManagerResponseDTO.setSales(salesManager.getSales());
+        return salesManagerResponseDTO;
     }
 }
 

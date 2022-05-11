@@ -32,6 +32,7 @@ public class SalesManagerController {
         return salesManagerService.updateSalesManager(employeeId, salesManagerRequestDTO);
     }
 
+
     @PostMapping("/delete/employeeId")//works
     public SalesManagerResponseDTO deleteSalesManager(@RequestParam("employeeId") Long employeeId)
     {

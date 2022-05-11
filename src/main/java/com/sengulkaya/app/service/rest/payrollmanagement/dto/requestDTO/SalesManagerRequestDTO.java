@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 
 public class SalesManagerRequestDTO extends ManagerRequestDTO {
-
+    private double sales;
     @Override
     public String getCitizenId() {
         return super.getCitizenId();
@@ -104,6 +104,15 @@ public class SalesManagerRequestDTO extends ManagerRequestDTO {
     @Override
     public SalesManagerRequestDTO setActive(boolean active) {
         super.setActive(active);
+        return this;
+    }
+
+    public double getSales() {
+        return sales;
+    }
+
+    public SalesManagerRequestDTO setSales(double sales) {
+        this.sales = sales;
         return this;
     }
 
