@@ -4,6 +4,9 @@ import com.sengulkaya.app.service.rest.payrollmanagement.data.dal.ServiceDAL;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Department;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Employee;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.Manager;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.repository.RepositoryException;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.service.DepartmentServiceException;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.service.ManagerServiceException;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ManagerRequestDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ManagerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.mapper.ManagerMapper;
@@ -26,71 +29,106 @@ public class ManagerService {
         this.managerMapper = managerMapper;
     }
 
+   //I wanted to write one try catch block to use for all the same kind of methods
+    // but ı did not know how to use the parameters in lambda for that because of the fact that parameters must be final.
     @Transactional
     public ManagerResponseDTO saveManager(ManagerRequestDTO managerRequestDTO)
     {
-        Department department = serviceDAL.findDepartmentById(managerRequestDTO.getDepartmentId());
-        Manager manager = serviceDAL.saveManager(managerMapper.toManager(managerRequestDTO));
-        department.getEmployees().add(manager);
-        manager.setDepartment(serviceDAL.saveDepartment(department));
+        try {
+            Department department = serviceDAL.findDepartmentById(managerRequestDTO.getDepartmentId());
+            Manager manager = serviceDAL.saveManager(managerMapper.toManager(managerRequestDTO));
+            department.getEmployees().add(manager);
+            manager.setDepartment(serviceDAL.saveDepartment(department));
 
-        return managerMapper.toManagerResponseDTO(manager);
+            return managerMapper.toManagerResponseDTO(manager);
+        } catch (RepositoryException ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new ManagerServiceException("ManagerService.saveManager", ex.getCause());
+        } catch (Throwable ex) {
+            throw new ManagerServiceException("ManagerService.saveManager", ex);
+        }
     }
 
     @Transactional
     public ManagerResponseDTO updateManager(Long employeeId, ManagerRequestDTO managerRequestDTO)
     {
-        Manager found = serviceDAL.findManagerByEmployeeId(employeeId);
+        try {
+            Manager found = serviceDAL.findManagerByEmployeeId(employeeId);
 
-        //    private String citizenId;
-        //    private String name;
-        //    private LocalDate dateOfBirth;//Retirement benefits?
-        //    private String jobTitle;
-        //    private LocalDate dateOfEmployment;
-        //    private LocalDate dateOfLeave;
-        //    private double baseSalary;
-        //    private double ratePerHour;
-        //    private boolean active;
-        //    private Long departmentId;
+            found.setCitizenId(managerRequestDTO.getCitizenId());
+            found.setName(managerRequestDTO.getName());
+            found.setDateOfBirth(managerRequestDTO.getDateOfBirth());
+            found.setJobTitle(managerRequestDTO.getJobTitle());
+            found.setDateOfEmployment(managerRequestDTO.getDateOfEmployment());
+            found.setDateOfLeave(managerRequestDTO.getDateOfLeave());
+            found.setBaseSalary(managerRequestDTO.getBaseSalary());
+            found.setRatePerHour(managerRequestDTO.getRatePerHour());
+            found.setActive(managerRequestDTO.isActive());
+            found.setDepartment(serviceDAL.findDepartmentById(managerRequestDTO.getDepartmentId()));
 
-        found.setCitizenId(managerRequestDTO.getCitizenId());
-        found.setName(managerRequestDTO.getName());
-        found.setDateOfBirth(managerRequestDTO.getDateOfBirth());
-        found.setJobTitle(managerRequestDTO.getJobTitle());
-        found.setDateOfEmployment(managerRequestDTO.getDateOfEmployment());
-        found.setDateOfLeave(managerRequestDTO.getDateOfLeave());
-        found.setBaseSalary(managerRequestDTO.getBaseSalary());
-        found.setRatePerHour(managerRequestDTO.getRatePerHour());
-        found.setActive(managerRequestDTO.isActive());
-        found.setDepartment(serviceDAL.findDepartmentById(managerRequestDTO.getDepartmentId()));
-
-        return managerMapper.toManagerResponseDTO(serviceDAL.saveManager(found));
+            return managerMapper.toManagerResponseDTO(serviceDAL.saveManager(found));
+        } catch (RepositoryException ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new ManagerServiceException("ManagerService.updateManager", ex.getCause());
+        } catch (Throwable ex) {
+            throw new ManagerServiceException("ManagerService.updateManager", ex);
+        }
     }
 
     @Transactional
     public ManagerResponseDTO deleteManagerByEmployeeId(Long employeeId)
     {
-        Manager manager = serviceDAL.findManagerByEmployeeId(employeeId);
-        Department department = manager.getDepartment();
+        try {
+            Manager manager = serviceDAL.findManagerByEmployeeId(employeeId);
+            Department department = manager.getDepartment();
 
-        Set<Employee> set = department.getEmployees();
-        set.remove(manager);
-        //manager.setEmployees(set);
-        serviceDAL.saveDepartment(department);
-        return managerMapper.toManagerResponseDTO
-                (serviceDAL.removeManager(manager));
+            Set<Employee> set = department.getEmployees();
+            set.remove(manager);
+            serviceDAL.saveDepartment(department);
+            return managerMapper.toManagerResponseDTO
+                    (serviceDAL.removeManager(manager));
+        } catch (RepositoryException ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new ManagerServiceException("ManagerService.deleteManagerByEmployeeId", ex.getCause());
+        } catch (Throwable ex) {
+            throw new ManagerServiceException("ManagerService.deleteManagerByEmployeeId", ex);
+        }
     }
 
     public ManagerResponseDTO findManagerByEmployeeId(Long employeeId)
     {
-        return managerMapper.toManagerResponseDTO(serviceDAL.findManagerByEmployeeId(employeeId));
+        try {
+
+            return managerMapper.toManagerResponseDTO(serviceDAL.findManagerByEmployeeId(employeeId));
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new ManagerServiceException("ManagerService.findManagerByEmployeeId", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new ManagerServiceException("ManagerService.findManagerByEmployeeId", ex);
+        }
     }
 
     public List<ManagerResponseDTO> findAllManagers()
     {
-        return serviceDAL.findAllManagers().stream()
-                .map(managerMapper::toManagerResponseDTO)
-                .collect(Collectors.toList());
+        try {
+
+            return serviceDAL.findAllManagers().stream()
+                    .map(managerMapper::toManagerResponseDTO)
+                    .collect(Collectors.toList());
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new ManagerServiceException("ManagerService.findAllManagers", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new ManagerServiceException("ManagerService.findAllManagers", ex);
+        }
     }
 
 }

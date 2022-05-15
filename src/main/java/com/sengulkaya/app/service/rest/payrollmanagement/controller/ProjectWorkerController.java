@@ -1,9 +1,11 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.controller;
 
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ProjectWorkerRequestDTO;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ManagerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ProjectWorkerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.service.ProjectWorkerService;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,33 +21,73 @@ public class ProjectWorkerController {
         this.projectWorkerService = projectWorkerService;
     }
 
-    @PostMapping("/save")//works
-    public ProjectWorkerResponseDTO saveProjectWorker(@RequestBody ProjectWorkerRequestDTO projectWorkerRequestDTO)
+    @PostMapping("/save")
+    public ResponseEntity<ProjectWorkerResponseDTO> saveProjectWorker(@RequestBody ProjectWorkerRequestDTO projectWorkerRequestDTO)
     {
-        return projectWorkerService.saveProjectWorker(projectWorkerRequestDTO);
+        ResponseEntity<ProjectWorkerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       projectWorkerService.saveProjectWorker(projectWorkerRequestDTO));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
-    @PostMapping("/update/{id}")//works
-    public ProjectWorkerResponseDTO updateProjectWorker(@PathVariable("id") Long employeeId, @RequestBody ProjectWorkerRequestDTO projectWorkerRequestDTO)
+    @PostMapping("/update/{id}")
+    public ResponseEntity<ProjectWorkerResponseDTO> updateProjectWorker(@PathVariable("id") Long employeeId, @RequestBody ProjectWorkerRequestDTO projectWorkerRequestDTO)
     {
-        return projectWorkerService.updateProjectWorker(employeeId, projectWorkerRequestDTO);
+        ResponseEntity<ProjectWorkerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       projectWorkerService.updateProjectWorker(employeeId, projectWorkerRequestDTO));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
     @PostMapping("/delete/employeeId")
-    public ProjectWorkerResponseDTO deleteProjectWorker(@RequestParam("employeeId") Long employeeId)
+    public ResponseEntity<ProjectWorkerResponseDTO> deleteProjectWorker(@RequestParam("employeeId") Long employeeId)
     {
-        return projectWorkerService.deleteProjectWorkerByEmployeeId(employeeId);
-    }
-    @GetMapping("/find/employeeId")//works
-    public ProjectWorkerResponseDTO findProjectWorkerByEmployeeId(@RequestParam("employeeId") Long employeeId)
-    {
-        return projectWorkerService.findProjectWorkerByEmployeeId(employeeId);
+        ResponseEntity<ProjectWorkerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       projectWorkerService.deleteProjectWorkerByEmployeeId(employeeId));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
-    @GetMapping("/all")//works
-    public List<ProjectWorkerResponseDTO> findAllProjectWorkers()
+    @GetMapping("/find/employeeId")
+    public ResponseEntity<ProjectWorkerResponseDTO> findProjectWorkerByEmployeeId(@RequestParam("employeeId") Long employeeId)
     {
-        return projectWorkerService.findAllProjectWorkers();
+        ResponseEntity<ProjectWorkerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       projectWorkerService.findProjectWorkerByEmployeeId(employeeId));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<ProjectWorkerResponseDTO>> findAllProjectWorkers()
+    {
+        ResponseEntity<List<ProjectWorkerResponseDTO>> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       projectWorkerService.findAllProjectWorkers());
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
+    }
 }

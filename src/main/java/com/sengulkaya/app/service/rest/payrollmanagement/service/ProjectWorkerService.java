@@ -2,6 +2,9 @@ package com.sengulkaya.app.service.rest.payrollmanagement.service;
 
 import com.sengulkaya.app.service.rest.payrollmanagement.data.dal.ServiceDAL;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.*;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.repository.RepositoryException;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.service.ManagerServiceException;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.service.ProjectWorkerServiceException;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ProjectWorkerRequestDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ProjectWorkerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.mapper.ProjectWorkerMapper;
@@ -28,71 +31,119 @@ public class ProjectWorkerService  {
     @Transactional
     public ProjectWorkerResponseDTO saveProjectWorker(ProjectWorkerRequestDTO projectWorkerRequestDTO)
     {
-        Department department = serviceDAL.findDepartmentById(projectWorkerRequestDTO.getDepartmentId());
-               ProjectWorker projectWorker = serviceDAL.saveProjectWorker(projectWorkerMapper.toProjectWorker(projectWorkerRequestDTO));
-               department.getEmployees().add(projectWorker);//??
-               serviceDAL.saveDepartment(department);
-               projectWorker.setDepartment(serviceDAL.saveDepartment(department));
+        try {
 
-               return projectWorkerMapper.toProjectWorkerResponseDTO(projectWorker);
+            Department department = serviceDAL.findDepartmentById(projectWorkerRequestDTO.getDepartmentId());
+            ProjectWorker projectWorker = serviceDAL.saveProjectWorker(projectWorkerMapper.toProjectWorker(projectWorkerRequestDTO));
+            department.getEmployees().add(projectWorker);//??
+            serviceDAL.saveDepartment(department);
+            projectWorker.setDepartment(serviceDAL.saveDepartment(department));
 
+            return projectWorkerMapper.toProjectWorkerResponseDTO(projectWorker);
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new ProjectWorkerServiceException("ProjectWorkerService.saveProjectWorker", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new ProjectWorkerServiceException("ProjectWorkerService.saveProjectWorker", ex);
+        }
     }
 
     @Transactional
     public ProjectWorkerResponseDTO updateProjectWorker(Long employeeId, ProjectWorkerRequestDTO projectWorkerRequestDTO)
     {
-        ProjectWorker found = serviceDAL.findProjectWorkerByEmployeeId(employeeId);
+        try {
 
-        // private String citizenId;
-        //    private String name;
-        //    private LocalDate dateOfBirth;//Retirement benefits?
-        //    private String jobTitle;
-        //    private LocalDate dateOfEmployment;
-        //    private LocalDate dateOfLeave;
-        //    private double baseSalary;
-        //    private double ratePerHour;
-        //    private boolean active;
-        //    private Long departmentId;
-        found.setCitizenId(projectWorkerRequestDTO.getCitizenId());
-        found.setName(projectWorkerRequestDTO.getName());
-        found.setDateOfBirth(projectWorkerRequestDTO.getDateOfBirth());
-        found.setDepartment(serviceDAL.findDepartmentById(projectWorkerRequestDTO.getDepartmentId()));
-        found.setJobTitle(projectWorkerRequestDTO.getJobTitle());
-        found.setDateOfEmployment(projectWorkerRequestDTO.getDateOfEmployment());
-        found.setDateOfLeave(projectWorkerRequestDTO.getDateOfLeave());
-        found.setBaseSalary(projectWorkerRequestDTO.getBaseSalary());
-        found.setRatePerHour(projectWorkerRequestDTO.getRatePerHour());
-        found.setProjectName(projectWorkerRequestDTO.getProjectName());
-        found.setActive(projectWorkerRequestDTO.isActive());
-        found.setDepartmentId(projectWorkerRequestDTO.getDepartmentId());
+            ProjectWorker found = serviceDAL.findProjectWorkerByEmployeeId(employeeId);
 
-        return projectWorkerMapper.toProjectWorkerResponseDTO(serviceDAL.saveProjectWorker(found));
+            found.setCitizenId(projectWorkerRequestDTO.getCitizenId());
+            found.setName(projectWorkerRequestDTO.getName());
+            found.setDateOfBirth(projectWorkerRequestDTO.getDateOfBirth());
+            found.setDepartment(serviceDAL.findDepartmentById(projectWorkerRequestDTO.getDepartmentId()));
+            found.setJobTitle(projectWorkerRequestDTO.getJobTitle());
+            found.setDateOfEmployment(projectWorkerRequestDTO.getDateOfEmployment());
+            found.setDateOfLeave(projectWorkerRequestDTO.getDateOfLeave());
+            found.setBaseSalary(projectWorkerRequestDTO.getBaseSalary());
+            found.setRatePerHour(projectWorkerRequestDTO.getRatePerHour());
+            found.setProjectName(projectWorkerRequestDTO.getProjectName());
+            found.setActive(projectWorkerRequestDTO.isActive());
+            found.setDepartmentId(projectWorkerRequestDTO.getDepartmentId());
+
+            return projectWorkerMapper.toProjectWorkerResponseDTO(serviceDAL.saveProjectWorker(found));
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new ProjectWorkerServiceException("ProjectWorkerService.updateProjectWorker", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new ProjectWorkerServiceException("ProjectWorkerService.updateProjectWorker", ex);
+        }
     }
 
     @Transactional
     public ProjectWorkerResponseDTO deleteProjectWorkerByEmployeeId(Long employeeId)
     {
-        ProjectWorker projectWorker = serviceDAL.findProjectWorkerByEmployeeId(employeeId);
-        Department department = projectWorker.getDepartment();
+        try {
 
-        Set<Employee> set = department.getEmployees();
-        set.remove(projectWorker);
-        //projectWorker.setEmployees(set);
-        serviceDAL.saveDepartment(department);
-        return projectWorkerMapper.toProjectWorkerResponseDTO
-                (serviceDAL.removeProjectWorker(projectWorker));
+            ProjectWorker projectWorker = serviceDAL.findProjectWorkerByEmployeeId(employeeId);
+            Department department = projectWorker.getDepartment();
+
+            Set<Employee> set = department.getEmployees();
+            set.remove(projectWorker);
+            serviceDAL.saveDepartment(department);
+            return projectWorkerMapper.toProjectWorkerResponseDTO
+                    (serviceDAL.removeProjectWorker(projectWorker));
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new ProjectWorkerServiceException("ProjectWorkerService.deleteProjectWorkerByEmployeeId", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new ProjectWorkerServiceException("ProjectWorkerService.deleteProjectWorkerByEmployeeId", ex);
+        }
     }
 
     public ProjectWorkerResponseDTO findProjectWorkerByEmployeeId(Long employeeId)
     {
-        return projectWorkerMapper.toProjectWorkerResponseDTO(serviceDAL.findProjectWorkerByEmployeeId(employeeId));
+        try {
+
+            return projectWorkerMapper.toProjectWorkerResponseDTO(serviceDAL.findProjectWorkerByEmployeeId(employeeId));
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new ProjectWorkerServiceException("ProjectWorkerService.findProjectWorkerByEmployeeId", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new ProjectWorkerServiceException("ProjectWorkerService.findProjectWorkerByEmployeeId", ex);
+        }
     }
 
     public List<ProjectWorkerResponseDTO> findAllProjectWorkers()
     {
-        return serviceDAL.findAllProjectWorkers().stream()
-                .map(projectWorkerMapper::toProjectWorkerResponseDTO)
-                .collect(Collectors.toList());
+        try {
+
+            return serviceDAL.findAllProjectWorkers().stream()
+                    .map(projectWorkerMapper::toProjectWorkerResponseDTO)
+                    .collect(Collectors.toList());
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new ProjectWorkerServiceException("ProjectWorkerService.findAllProjectWorkers", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new ProjectWorkerServiceException("ProjectWorkerService.findAllProjectWorkers", ex);
+        }
     }
 
 }

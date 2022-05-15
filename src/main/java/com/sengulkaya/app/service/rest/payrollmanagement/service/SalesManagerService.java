@@ -2,6 +2,8 @@ package com.sengulkaya.app.service.rest.payrollmanagement.service;
 
 import com.sengulkaya.app.service.rest.payrollmanagement.data.dal.ServiceDAL;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.*;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.repository.RepositoryException;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.service.SalesManagerServiceException;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.SalesManagerRequestDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.SalesManagerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.mapper.SalesManagerMapper;
@@ -27,59 +29,116 @@ public class SalesManagerService  {
     @Transactional
     public SalesManagerResponseDTO saveSalesManager(SalesManagerRequestDTO salesManagerRequestDTO)
     {
-        Department department = serviceDAL.findDepartmentById(salesManagerRequestDTO.getDepartmentId());
-        SalesManager salesManager = serviceDAL.saveSalesManager(salesManagerMapper.toSalesManager(salesManagerRequestDTO));
-        department.getEmployees().add(salesManager);//??
-        salesManager.setDepartment(serviceDAL.saveDepartment(department));
+        try {
 
-        return salesManagerMapper.toSalesManagerResponseDTO(salesManager);
+            Department department = serviceDAL.findDepartmentById(salesManagerRequestDTO.getDepartmentId());
+            SalesManager salesManager = serviceDAL.saveSalesManager(salesManagerMapper.toSalesManager(salesManagerRequestDTO));
+            department.getEmployees().add(salesManager);//??
+            salesManager.setDepartment(serviceDAL.saveDepartment(department));
 
+            return salesManagerMapper.toSalesManagerResponseDTO(salesManager);
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new SalesManagerServiceException("SalesManagerService.saveSalesManager", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new SalesManagerServiceException("SalesManagerService.saveSalesManager", ex);
+        }
     }
 
     @Transactional
     public SalesManagerResponseDTO updateSalesManager(Long employeeId, SalesManagerRequestDTO salesManagerRequestDTO)
     {
-        SalesManager found = serviceDAL.findSalesManagerByEmployeeId(employeeId);
+        try {
 
-        found.setCitizenId(salesManagerRequestDTO.getCitizenId());
-        found.setName(salesManagerRequestDTO.getName());
-        found.setDateOfBirth(salesManagerRequestDTO.getDateOfBirth());
-        found.setDepartment(serviceDAL.findDepartmentById(salesManagerRequestDTO.getDepartmentId()));
-        found.setJobTitle(salesManagerRequestDTO.getJobTitle());
-        found.setDateOfEmployment(salesManagerRequestDTO.getDateOfEmployment());
-        found.setBaseSalary(salesManagerRequestDTO.getBaseSalary());
-        found.setRatePerHour(salesManagerRequestDTO.getRatePerHour());
-        found.setActive(salesManagerRequestDTO.isActive());
+            SalesManager found = serviceDAL.findSalesManagerByEmployeeId(employeeId);
 
-        return salesManagerMapper.toSalesManagerResponseDTO(serviceDAL.saveSalesManager(found));
+            found.setCitizenId(salesManagerRequestDTO.getCitizenId());
+            found.setName(salesManagerRequestDTO.getName());
+            found.setDateOfBirth(salesManagerRequestDTO.getDateOfBirth());
+            found.setDepartment(serviceDAL.findDepartmentById(salesManagerRequestDTO.getDepartmentId()));
+            found.setJobTitle(salesManagerRequestDTO.getJobTitle());
+            found.setDateOfEmployment(salesManagerRequestDTO.getDateOfEmployment());
+            found.setBaseSalary(salesManagerRequestDTO.getBaseSalary());
+            found.setRatePerHour(salesManagerRequestDTO.getRatePerHour());
+            found.setActive(salesManagerRequestDTO.isActive());
+
+            return salesManagerMapper.toSalesManagerResponseDTO(serviceDAL.saveSalesManager(found));
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new SalesManagerServiceException("SalesManagerService.updateSalesManager", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new SalesManagerServiceException("SalesManagerService.updateSalesManager", ex);
+        }
     }
 
     @Transactional
     public SalesManagerResponseDTO deleteSalesManagerByEmployeeId(Long employeeId)
     {
-        SalesManager salesManager = serviceDAL.findSalesManagerByEmployeeId(employeeId);
-        Department department = salesManager.getDepartment();
+        try {
 
-        Set<Employee> set = department.getEmployees();
-        set.remove(salesManager);
-        //salesManager.setEmployees(set);
-        serviceDAL.saveDepartment(department);
-        return salesManagerMapper.toSalesManagerResponseDTO
-                (serviceDAL.removeSalesManager(salesManager));
+            SalesManager salesManager = serviceDAL.findSalesManagerByEmployeeId(employeeId);
+            Department department = salesManager.getDepartment();
+
+            Set<Employee> set = department.getEmployees();
+            set.remove(salesManager);
+            serviceDAL.saveDepartment(department);
+            return salesManagerMapper.toSalesManagerResponseDTO
+                    (serviceDAL.removeSalesManager(salesManager));
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new SalesManagerServiceException("SalesManagerService.deleteSalesManagerByEmployeeId", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new SalesManagerServiceException("SalesManagerService.deleteSalesManagerByEmployeeId", ex);
+        }
     }
 
 
     public SalesManagerResponseDTO findSalesManagerByEmployeeId(Long employeeId)
     {
-        return salesManagerMapper.toSalesManagerResponseDTO(serviceDAL.findSalesManagerByEmployeeId(employeeId));
+        try {
+
+            return salesManagerMapper.toSalesManagerResponseDTO(serviceDAL.findSalesManagerByEmployeeId(employeeId));
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new SalesManagerServiceException("SalesManagerService.findSalesManagerByEmployeeId", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new SalesManagerServiceException("SalesManagerService.findSalesManagerByEmployeeId", ex);
+        }
     }
 
     public List<SalesManagerResponseDTO> findAllSalesManagers()
     {
-        return serviceDAL.findAllSalesManagers().stream()
-                .map(salesManagerMapper::toSalesManagerResponseDTO)
-                .collect(Collectors.toList());
+        try {
 
+            return serviceDAL.findAllSalesManagers().stream()
+                    .map(salesManagerMapper::toSalesManagerResponseDTO)
+                    .collect(Collectors.toList());
+
+        } catch (RepositoryException ex) {
+
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+            throw new SalesManagerServiceException("SalesManagerService.findAllSalesManagers", ex.getCause());
+
+        } catch (Throwable ex) {
+
+            throw new SalesManagerServiceException("SalesManagerService.findAllSalesManagers", ex);
+        }
     }
 
 }

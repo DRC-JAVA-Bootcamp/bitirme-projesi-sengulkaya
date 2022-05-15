@@ -2,9 +2,11 @@ package com.sengulkaya.app.service.rest.payrollmanagement.controller;
 
 
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ManagerRequestDTO;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.DepartmentResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ManagerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.service.ManagerService;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,32 +22,72 @@ public class ManagerController {
         this.managerService = managerService;
     }
 
-    @PostMapping("/save")//works
-    public ManagerResponseDTO saveManager(@RequestBody ManagerRequestDTO managerRequestDTO)
+    @PostMapping("/save")//work
+    public ResponseEntity<ManagerResponseDTO> saveManager(@RequestBody ManagerRequestDTO managerRequestDTO)
     {
-        return managerService.saveManager(managerRequestDTO);
+        ResponseEntity<ManagerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       managerService.saveManager(managerRequestDTO));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
-    @PostMapping("/update/{id}")//works
-    public ManagerResponseDTO updateManager(@PathVariable("id") Long employeeId, @RequestBody ManagerRequestDTO managerRequestDTO)
+    @PostMapping("/update/{id}")
+    public ResponseEntity<ManagerResponseDTO> updateManager(@PathVariable("id") Long employeeId, @RequestBody ManagerRequestDTO managerRequestDTO)
     {
-        return managerService.updateManager(employeeId, managerRequestDTO);
+        ResponseEntity<ManagerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       managerService.updateManager(employeeId, managerRequestDTO));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
 
-    @PostMapping("/delete/employeeId")//works, java.util.NoSuchElementException: No value present
-    public ManagerResponseDTO deleteManager(@RequestParam("employeeId") Long employeeId)
+    @PostMapping("/delete/employeeId")//throws java.util.NoSuchElementException: No value present
+    public ResponseEntity<ManagerResponseDTO> deleteManager(@RequestParam("employeeId") Long employeeId)
     {
-        return managerService.deleteManagerByEmployeeId(employeeId);
+        ResponseEntity<ManagerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       managerService.deleteManagerByEmployeeId(employeeId));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
-    @GetMapping("/find/employeeId")//works
-    public ManagerResponseDTO findManagerByCitizenId(@RequestParam("employeeId") Long employeeId)
+    @GetMapping("/find/employeeId")
+    public ResponseEntity<ManagerResponseDTO> findManagerByCitizenId(@RequestParam("employeeId") Long employeeId)
     {
-        return managerService.findManagerByEmployeeId(employeeId);
+        ResponseEntity<ManagerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       managerService.findManagerByEmployeeId(employeeId));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
-    @GetMapping("/all")//works
-    public List<ManagerResponseDTO> findAllManagers()
+    @GetMapping("/all")
+    public ResponseEntity<List<ManagerResponseDTO>> findAllManagers()
     {
-        return managerService.findAllManagers();
+        ResponseEntity<List<ManagerResponseDTO>> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       managerService.findAllManagers());
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 }

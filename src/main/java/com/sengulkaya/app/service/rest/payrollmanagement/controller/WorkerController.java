@@ -1,9 +1,11 @@
 package com.sengulkaya.app.service.rest.payrollmanagement.controller;
 
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.WorkerRequestDTO;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.SalesManagerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.WorkerResponseDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.service.WorkerService;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,32 +21,72 @@ public class WorkerController {
         this.workerService = workerService;
     }
 
-    @PostMapping("/save")//works
-    public WorkerResponseDTO saveWorker(@RequestBody WorkerRequestDTO workerRequestDTO) throws Exception
+    @PostMapping("/save")
+    public ResponseEntity<WorkerResponseDTO> saveWorker(@RequestBody WorkerRequestDTO workerRequestDTO) throws Exception
     {
-       return workerService.saveWorker(workerRequestDTO);
+        ResponseEntity<WorkerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       workerService.saveWorker(workerRequestDTO));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
-    @PostMapping("/update/{id}")//works
-    public WorkerResponseDTO updateWorker(@PathVariable("id") Long employeeId, @RequestBody WorkerRequestDTO workerRequestDTO)
+    @PostMapping("/update/{id}")
+    public ResponseEntity<WorkerResponseDTO> updateWorker(@PathVariable("id") Long employeeId, @RequestBody WorkerRequestDTO workerRequestDTO)
     {
-        return workerService.updateWorker(employeeId, workerRequestDTO);
+        ResponseEntity<WorkerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       workerService.updateWorker(employeeId, workerRequestDTO));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
-    @PostMapping("/delete/employeeId")//works
-    public WorkerResponseDTO deleteWorker(@RequestParam("employeeId") Long employeeId)
+    @PostMapping("/delete/employeeId")
+    public ResponseEntity<WorkerResponseDTO> deleteWorker(@RequestParam("employeeId") Long employeeId)
     {
-        return workerService.deleteWorkerByEmployeeId(employeeId);
+        ResponseEntity<WorkerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       workerService.deleteWorkerByEmployeeId(employeeId));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
-    @GetMapping("/find/employeeId")//works
-    public WorkerResponseDTO findWorkerByEmployeeId(@RequestParam("employeeId") Long employeeId)
+    @GetMapping("/find/employeeId")
+    public ResponseEntity<WorkerResponseDTO> findWorkerByEmployeeId(@RequestParam("employeeId") Long employeeId)
     {
-        return workerService.findWorkerByEmployeeId(employeeId);
+        ResponseEntity<WorkerResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       workerService.findWorkerByEmployeeId(employeeId));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
-    @GetMapping("/all")//works
-    public List<WorkerResponseDTO> findAllWorkers()
+    @GetMapping("/all")
+    public ResponseEntity<List<WorkerResponseDTO>> findAllWorkers()
     {
-        return workerService.findAllWorkers();
+        ResponseEntity<List<WorkerResponseDTO>> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       workerService.findAllWorkers());
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 }

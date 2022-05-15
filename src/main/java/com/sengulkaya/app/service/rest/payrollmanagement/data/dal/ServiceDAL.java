@@ -2,10 +2,10 @@ package com.sengulkaya.app.service.rest.payrollmanagement.data.dal;
 
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.*;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.repository.*;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.callbackinterfaces.ISupplierCallback;
+import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.repository.RepositoryException;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -17,6 +17,17 @@ public class ServiceDAL {
     private final IManagerRepository managerRepository;
     private final ISalesManagerRepository salesManagerRepository;
     private final IDepartmentRepository departmentRepository;
+
+    private static <R> R doWorkForRepository(ISupplierCallback<R> supplier, String msg)
+    {
+        try {
+            return supplier.get();
+        }
+        catch (Throwable ex) {
+            throw new RepositoryException(msg, ex);
+        }
+    }
+
 
 
 
@@ -35,43 +46,83 @@ public class ServiceDAL {
 
 
     public Worker saveWorker(Worker worker) {
-        return workerRepository.save(worker);
+        try {
+            return workerRepository.save(worker);
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.saveWorker", cause);
+        }
     }
 
     public ProjectWorker saveProjectWorker(ProjectWorker projectWorker) {
-        return workerRepository.save(projectWorker);
+        try {
+            return workerRepository.save(projectWorker);
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.saveProjectWorker", cause);
+        }
     }
 
     public Manager saveManager(Manager manager) {
-        return managerRepository.save(manager);
+        try {
+            return managerRepository.save(manager);
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.saveManager", cause);
+        }
     }
 
     public SalesManager saveSalesManager(SalesManager salesManager) {
-        return salesManagerRepository.save(salesManager);
+        try {
+            return salesManagerRepository.save(salesManager);
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.saveSalesManager", cause);
+        }
     }
 
     public Department saveDepartment(Department department) {
-        return departmentRepository.save(department);
+        try {
+            return departmentRepository.save(department);
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.saveDepartment", cause);
+        }
     }
 
     public Worker findWorkerByEmployeeId(Long employeeId) {
-        return workerRepository.findByEmployeeId(employeeId).get();
+        try {
+            return workerRepository.findByEmployeeId(employeeId).get();
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findWorkerByEmployeeId", cause);
+        }
     }
 
     public ProjectWorker findProjectWorkerByEmployeeId(Long employeeId) {
-        return projectWorkerRepository.findByEmployeeId(employeeId).get();
+        try {
+            return projectWorkerRepository.findByEmployeeId(employeeId).get();
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findProjectWorkerByEmployeeId", cause);
+        }
     }
 
     public Manager findManagerByEmployeeId(Long employeeId) {
-        return managerRepository.findByEmployeeId(employeeId).get();
+        try {
+            return managerRepository.findByEmployeeId(employeeId).get();
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findManagerByEmployeeId", cause);
+        }
     }
 
     public SalesManager findSalesManagerByEmployeeId(Long employeeId) {
-        return salesManagerRepository.findByEmployeeId(employeeId).get();
+        try {
+            return salesManagerRepository.findByEmployeeId(employeeId).get();
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findSalesManagerByEmployeeId", cause);
+        }
     }
 
     public Department findDepartmentById(Long departmentId) {
-        return departmentRepository.findById(departmentId).get();
+        try {
+            return departmentRepository.findById(departmentId).get();
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findDepartmentById", cause);
+        }
     }
     /*public Department findDepartmentByName(String departmentName) {
         return departmentRepository.findByName(departmentName).get();
@@ -79,69 +130,108 @@ public class ServiceDAL {
 
 
     public Worker removeWorker(Worker worker) {
-        workerRepository.delete(worker);
-        return worker;
+        try {
+            workerRepository.delete(worker);
+            return worker;
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.removeWorker", cause);
+        }
     }
 
     public ProjectWorker removeProjectWorker(ProjectWorker projectWorker) {
-        projectWorkerRepository.delete(projectWorker);
-        return projectWorker;
+        try {
+            projectWorkerRepository.delete(projectWorker);
+            return projectWorker;
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.removeProjectWorker", cause);
+        }
     }
 
     public Manager removeManager(Manager manager) {
-        managerRepository.delete(manager);
-        return manager;
+        try {
+            managerRepository.delete(manager);
+            return manager;
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.removeManager", cause);
+        }
     }
 
     public SalesManager removeSalesManager(SalesManager salesManager) {
-        salesManagerRepository.delete(salesManager);
-        return salesManager;
+        try {
+            salesManagerRepository.delete(salesManager);
+            return salesManager;
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.removeSalesManager", cause);
+        }
     }
 
 
     public List<Worker> findAllWorkers() {
-        return StreamSupport.stream(workerRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        try {
+            return StreamSupport.stream(workerRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList());
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findAllWorkers", cause);
+        }
     }
 
     public List<ProjectWorker> findAllProjectWorkers() {
-        return StreamSupport.stream(projectWorkerRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        try {
+            return StreamSupport.stream(projectWorkerRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList());
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findAllProjectWorkers", cause);
+        }
     }
 
     public List<Manager> findAllManagers() {
-        return StreamSupport.stream(managerRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        try {
+            return StreamSupport.stream(managerRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList());
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findAllManagers", cause);
+        }
     }
 
     public List<SalesManager> findAllSalesManagers() {
-        return StreamSupport.stream(salesManagerRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        try {
+            return StreamSupport.stream(salesManagerRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList());
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findAllSalesManagers", cause);
+        }
     }
 
     public List<Department> findAllDepartments() {
-        return StreamSupport.stream(departmentRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        try {
+            return StreamSupport.stream(departmentRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList());
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findAllDepartments", cause);
+        }
     }
 
     public List<Employee> findAllEmployees()
     {
+        try {
+            List<Employee> list = StreamSupport.stream(managerRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList());
 
-        List<Employee> list = StreamSupport.stream(managerRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+            list.addAll(StreamSupport.stream(salesManagerRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList()));
 
-        list.addAll(StreamSupport.stream(salesManagerRepository.findAll().spliterator(), false)
-                                        .collect(Collectors.toList()));
+            list.addAll(StreamSupport.stream(workerRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList()));
 
-        list.addAll(StreamSupport.stream(workerRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList()));
+            list.addAll(StreamSupport.stream(projectWorkerRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList()));
 
-        list.addAll(StreamSupport.stream(projectWorkerRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList()));
+            for (var val : list)
+                System.out.println(val.getClass());
 
-        for (var val : list)
-            System.out.println(val.getClass());
-
-        return list;
+            return list;
+        } catch (Throwable cause) {
+            throw new RepositoryException("ServiceDAL.findAllEmployees", cause);
+        }
     }
 }

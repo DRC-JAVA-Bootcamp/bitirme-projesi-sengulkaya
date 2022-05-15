@@ -8,6 +8,7 @@ import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.Manager
 import com.sengulkaya.app.service.rest.payrollmanagement.service.DepartmentService;
 import com.sengulkaya.app.service.rest.payrollmanagement.service.ManagerService;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,29 +24,61 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @PostMapping("/save")//works
-    public DepartmentResponseDTO saveDepartment(@RequestBody DepartmentRequestDTO departmentRequestDTO)
+    @PostMapping("/save")
+    public ResponseEntity<DepartmentResponseDTO> saveDepartment(@RequestBody DepartmentRequestDTO departmentRequestDTO)
     {
-        return departmentService.saveDepartment(departmentRequestDTO);
+        ResponseEntity<DepartmentResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       departmentService.saveDepartment(departmentRequestDTO));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
     @PostMapping("/update/{id}")
-    public DepartmentResponseDTO updateDepartment(@PathVariable("id") Long departmentId, @RequestBody DepartmentRequestDTO departmentRequestDTO)
+    public ResponseEntity<DepartmentResponseDTO> updateDepartment(@PathVariable("id") Long departmentId, @RequestBody DepartmentRequestDTO departmentRequestDTO)
     {
-        return departmentService.updateDepartment(departmentId, departmentRequestDTO);
+        ResponseEntity<DepartmentResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       departmentService.updateDepartment(departmentId, departmentRequestDTO));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
 
-    @GetMapping("/find/{id}")//works
-    public DepartmentResponseDTO findDepartmentBId(@PathVariable("id") Long departmentId)
+    @GetMapping("/find/{id}")
+    public ResponseEntity<DepartmentResponseDTO> findDepartmentBId(@PathVariable("id") Long departmentId)
     {
-        return departmentService.findDepartmentById(departmentId);
+        ResponseEntity<DepartmentResponseDTO> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       departmentService.findDepartmentById(departmentId));
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 
     //http://localhost:8082/api/department/find/all
-    @GetMapping("/find/all")//works
-    public List<DepartmentResponseDTO> findAllDepartments()
+    @GetMapping("/find/all")
+    public ResponseEntity<List<DepartmentResponseDTO>> findAllDepartments()
     {
-        return departmentService.findAllDepartments();
+        ResponseEntity<List<DepartmentResponseDTO>> responseEntity = ResponseEntity.badRequest().build();
+
+        try {
+            responseEntity = ResponseEntity.ok(       departmentService.findAllDepartments());
+
+        } catch (Throwable ex) {
+            System.out.printf("%s: %s", ex.getMessage(), ex.getCause());
+        }
+        return responseEntity;
     }
 }
