@@ -173,6 +173,8 @@ public abstract class Employee implements ILifeInsurance {
     @Override
     public double calculateInsurancePayment() {
         double total = calculateTotalPayment();
-        return total * setBraket(total).getPercentile();
+        double insurancePayment = total * setBraket(total).getPercentile();
+        System.out.println(getEmployeeId() + ". " + getName() + ": " + insurancePayment + " life insurance payment");
+        return insurancePayment;
     }
 }

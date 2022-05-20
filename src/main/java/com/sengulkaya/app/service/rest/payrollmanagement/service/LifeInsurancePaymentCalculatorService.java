@@ -9,6 +9,7 @@ import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.service.D
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.exception.service.LifeInsurancePaymentCalculatorServiceException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;

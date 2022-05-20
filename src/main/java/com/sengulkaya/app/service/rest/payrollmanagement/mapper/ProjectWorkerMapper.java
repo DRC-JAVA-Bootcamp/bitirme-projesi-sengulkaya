@@ -3,9 +3,6 @@ package com.sengulkaya.app.service.rest.payrollmanagement.mapper;
 import com.sengulkaya.app.service.rest.payrollmanagement.data.entity.employee.ProjectWorker;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.requestDTO.ProjectWorkerRequestDTO;
 import com.sengulkaya.app.service.rest.payrollmanagement.dto.responseDTO.ProjectWorkerResponseDTO;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

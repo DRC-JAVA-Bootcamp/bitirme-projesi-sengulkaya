@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
-public class SalesManager extends Manager {
+public class SalesManager extends Manager  {
     private double sales;
     private double bonus;
 
